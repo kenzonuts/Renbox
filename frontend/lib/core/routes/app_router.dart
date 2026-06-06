@@ -1,0 +1,127 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../core/constants/app_constants.dart';
+import '../../features/activity/screens/activity_screen.dart';
+import '../../features/auth/providers/auth_provider.dart';
+import '../../features/auth/screens/interest_setup_screen.dart';
+import '../../features/auth/screens/login_screen.dart';
+import '../../features/auth/screens/register_screen.dart';
+import '../../features/create/screens/create_screen.dart';
+import '../../features/create/screens/upload_post_screen.dart';
+import '../../features/explore/screens/explore_screen.dart';
+import '../../features/explore/screens/location_detail_screen.dart';
+import '../../features/home/screens/home_screen.dart';
+import '../../features/main/screens/main_shell.dart';
+import '../../features/onboarding/screens/onboarding_screen.dart';
+import '../../features/profile/screens/profile_screen.dart';
+import '../../features/splash/screens/splash_screen.dart';
+
+final routerProvider = Provider<GoRouter>((ref) {
+  final authState = ref.watch(authProvider);
+
+  return GoRouter(
+    initialLocation: AppConstants.requireAuth ? '/' : '/main',
+    debugLogDiagnostics: true,
+    redirect: (context, state) {
+      if (!AppConstants.requireAuth) {
+        const authOnlyRoutes = {
+          '/',
+          '/onboarding',
+          '/login',
+          '/register',
+          '/interests',
+        };
+        if (authOnlyRoutes.contains(state.matchedLocation)) {
+          return '/main';
+        }
+        return null;
+      }
+
+      final path = state.matchedLocation;
+      final isAuth = authState.status == AuthStatus.authenticated;
+      final isAuthRoute = path == '/login' || path == '/register';
+      final isPublicRoute = path == '/' ||
+          path == '/onboarding' ||
+          isAuthRoute ||
+          path == '/interests';
+
+      if (authState.status == AuthStatus.unknown && path != '/') {
+        return '/';
+      }
+
+      if (!isAuth && !isPublicRoute && path.startsWith('/main')) {
+        return '/login';
+      }
+
+      if (isAuth && isAuthRoute) {
+        return '/main';
+      }
+
+      return null;
+    },
+    routes: [
+      GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
+      GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
+      GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
+      GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
+      GoRoute(path: '/interests', builder: (_, __) => const InterestSetupScreen()),
+      GoRoute(
+        path: '/upload-post',
+        builder: (_, __) => const UploadPostScreen(),
+      ),
+      GoRoute(
+        path: '/location/:slug',
+        builder: (_, state) => LocationDetailScreen(
+          slug: state.pathParameters['slug']!,
+        ),
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (_, __, navigationShell) =>
+            MainShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/main',
+                builder: (_, __) => const HomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/main/explore',
+                builder: (_, __) => const ExploreScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/main/create',
+                builder: (_, __) => const CreateScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/main/activity',
+                builder: (_, __) => const ActivityScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/main/profile',
+                builder: (_, __) => const ProfileScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+});

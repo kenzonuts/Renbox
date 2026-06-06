@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import * as wishlistController from '../controllers/wishlist.controller';
+import { authMiddleware } from '../middleware/auth.middleware';
+
+const router = Router();
+
+router.use(authMiddleware);
+router.get('/me', wishlistController.getMine);
+router.post('/:locationId', wishlistController.add);
+router.delete('/:locationId', wishlistController.remove);
+
+export default router;
