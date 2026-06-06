@@ -94,4 +94,21 @@ class LocationModel {
         return difficulty ?? '-';
     }
   }
+
+  String get difficultyBadgeLabel {
+    switch (difficulty) {
+      case 'easy':
+        return 'Easy';
+      case 'medium':
+        return 'Medium';
+      case 'hard':
+      case 'extreme':
+        return 'Hard';
+      default:
+        return 'Easy';
+    }
+  }
+
+  bool get isHardDifficulty =>
+      difficulty == 'hard' || difficulty == 'extreme';
 }

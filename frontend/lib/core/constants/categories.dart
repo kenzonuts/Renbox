@@ -86,6 +86,22 @@ const List<NatureCategory> natureCategories = [
   ),
 ];
 
+const NatureCategory hiddenGemsCategory = NatureCategory(
+  id: 'hidden',
+  label: 'Hidden Gems',
+  apiValue: 'hidden',
+  emoji: '💎',
+  backgroundColor: AppColors.hiddenBg,
+  textColor: AppColors.hiddenText,
+  selectedBackgroundColor: AppColors.hiddenText,
+  selectedTextColor: Colors.white,
+);
+
+const List<NatureCategory> exploreCategories = [
+  ...natureCategories,
+  hiddenGemsCategory,
+];
+
 const List<String> interestOptions = [
   'Gunung',
   'Camping',

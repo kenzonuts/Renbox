@@ -32,4 +32,9 @@ class AppColors {
   static const Color lakeBg = Color(0xFFE3F2FD);
   static const Color lakeText = Color(0xFF1565C0);
   static const Color starGold = Color(0xFFFFB703);
+  static const Color hiddenBg = Color(0xFFF3EEF8);
+  static const Color hiddenText = Color(0xFF7B5EA7);
+  static const Color difficultyHard = Color(0xFFE63946);
+  static const Color difficultyEasy = Color(0xFF2D6A4F);
+  static const Color difficultyMedium = Color(0xFFE07B39);
 }

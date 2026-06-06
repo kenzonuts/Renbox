@@ -25,7 +25,7 @@ class DummyData {
         altitude: 3726,
         difficulty: 'extreme',
         duration: '2–3 Hari',
-        ratingAverage: 4.8,
+        ratingAverage: 4.9,
         reviewsCount: 1200,
         coverImageUrl:
             'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
@@ -45,11 +45,11 @@ class DummyData {
           altitude: 2565,
           difficulty: 'medium',
           duration: '1 Hari',
-          ratingAverage: 4.6,
-          reviewsCount: 890,
-          coverImageUrl:
-              'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
-        ),
+        ratingAverage: 4.9,
+        reviewsCount: 890,
+        coverImageUrl:
+            'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
+      ),
         LocationModel(
           id: '3',
           name: 'Danau Toba',
@@ -79,6 +79,109 @@ class DummyData {
       ];
 
   static List<LocationModel> get popularLocations => featuredLocations;
+
+  static List<LocationModel> get weeklyPopular => featuredLocations;
+
+  static List<LocationModel> get otherDestinations => [
+        LocationModel(
+          id: '2',
+          name: 'Gunung Prau',
+          slug: 'gunung-prau',
+          category: 'mountain',
+          province: 'Jawa Tengah',
+          city: 'Wonosobo',
+          altitude: 2565,
+          difficulty: 'easy',
+          duration: '1 Hari',
+          ratingAverage: 4.8,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600',
+        ),
+        LocationModel(
+          id: '5',
+          name: 'Pantai Parangtritis',
+          slug: 'pantai-parangtritis',
+          category: 'beach',
+          province: 'DI Yogyakarta',
+          city: 'Bantul',
+          difficulty: 'medium',
+          ratingAverage: 4.6,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',
+        ),
+        LocationModel(
+          id: '4',
+          name: 'Coban Rondo',
+          slug: 'coban-rondo',
+          category: 'waterfall',
+          province: 'Jawa Timur',
+          city: 'Malang',
+          difficulty: 'easy',
+          ratingAverage: 4.7,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=600',
+        ),
+        LocationModel(
+          id: '6',
+          name: 'Danau Warna',
+          slug: 'danau-warna',
+          category: 'lake',
+          province: 'Jawa Timur',
+          city: 'Bondowoso',
+          difficulty: 'easy',
+          ratingAverage: 4.5,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600',
+        ),
+        LocationModel(
+          id: '7',
+          name: 'Ranu Kumbolo',
+          slug: 'ranu-kumbolo',
+          category: 'lake',
+          province: 'Jawa Timur',
+          city: 'Lumajang',
+          difficulty: 'medium',
+          ratingAverage: 4.9,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600',
+        ),
+        LocationModel(
+          id: '8',
+          name: 'Curug Cimahi',
+          slug: 'curug-cimahi',
+          category: 'waterfall',
+          province: 'Jawa Barat',
+          city: 'Bandung',
+          difficulty: 'easy',
+          ratingAverage: 4.4,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600',
+        ),
+        LocationModel(
+          id: '9',
+          name: 'Pantai Kuta',
+          slug: 'pantai-kuta',
+          category: 'beach',
+          province: 'Bali',
+          city: 'Badung',
+          difficulty: 'easy',
+          ratingAverage: 4.6,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600',
+        ),
+        LocationModel(
+          id: '10',
+          name: 'Hutan Pinus',
+          slug: 'hutan-pinus',
+          category: 'forest',
+          province: 'Jawa Barat',
+          city: 'Lembang',
+          difficulty: 'easy',
+          ratingAverage: 4.3,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600',
+        ),
+      ];
 
   static List<PostModel> get feedPosts => [
         PostModel(

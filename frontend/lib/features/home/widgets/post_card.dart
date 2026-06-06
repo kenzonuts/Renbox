@@ -15,9 +15,9 @@ class PostCard extends StatelessWidget {
   final PostModel post;
   final int imageCount;
 
-  static const _cardRadius = 22.0;
-  static const _imageRadius = 16.0;
-  static const _padding = 14.0;
+  static const _cardRadius = 24.0;
+  static const _imageRadius = 18.0;
+  static const _padding = 16.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,9 @@ class PostCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(_cardRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColors.deepForest.withValues(alpha: 0.06),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-          BoxShadow(
-            color: AppColors.deepForest.withValues(alpha: 0.03),
-            blurRadius: 6,
-            offset: const Offset(0, 1),
+            color: AppColors.deepForest.withValues(alpha: 0.07),
+            blurRadius: 24,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -48,19 +43,19 @@ class PostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: AppColors.forestGreen.withValues(alpha: 0.55),
+                      color: AppColors.forestGreen.withValues(alpha: 0.6),
                       width: 1.5,
                     ),
                   ),
                   child: CircleAvatar(
-                    radius: 19,
+                    radius: 18,
                     backgroundImage: profile?.avatarUrl != null
                         ? CachedNetworkImageProvider(profile!.avatarUrl!)
                         : null,
@@ -70,7 +65,7 @@ class PostCard extends StatelessWidget {
                             (profile?.username ?? '?')[0].toUpperCase(),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 13,
                             ),
                           )
                         : null,
@@ -129,8 +124,8 @@ class PostCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     if (post.createdAt != null)
                       Text(
@@ -146,10 +141,10 @@ class PostCard extends StatelessWidget {
                       icon: const Icon(Icons.more_horiz_rounded),
                       iconSize: 20,
                       color: AppColors.textMuted,
-                      padding: EdgeInsets.zero,
+                      padding: const EdgeInsets.only(left: 4),
                       constraints: const BoxConstraints(
-                        minWidth: 28,
-                        minHeight: 28,
+                        minWidth: 32,
+                        minHeight: 32,
                       ),
                       visualDensity: VisualDensity.compact,
                     ),
@@ -177,12 +172,12 @@ class PostCard extends StatelessWidget {
                     right: 10,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 9,
-                        vertical: 4,
+                        horizontal: 10,
+                        vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.55),
-                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black.withValues(alpha: 0.5),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         '1/$imageCount',
@@ -200,9 +195,11 @@ class PostCard extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 post.caption!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 13.5,
-                  height: 1.5,
+                  height: 1.45,
                   color: AppColors.textPrimary,
                   fontWeight: FontWeight.w400,
                 ),
@@ -217,12 +214,12 @@ class PostCard extends StatelessWidget {
                   color: AppColors.error,
                   iconFilled: true,
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 18),
                 _ActionItem(
                   icon: Icons.chat_bubble_outline_rounded,
                   count: post.commentsCount,
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 18),
                 _ActionItem(
                   icon: Icons.near_me_outlined,
                   count: post.sharesCount,
@@ -262,13 +259,14 @@ class _ActionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemColor = color ?? AppColors.textMuted;
+    final countColor = color ?? AppColors.textSecondary;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           icon,
-          size: 21,
+          size: 22,
           color: itemColor,
           fill: iconFilled ? 1.0 : 0.0,
         ),
@@ -276,11 +274,9 @@ class _ActionItem extends StatelessWidget {
         Text(
           _formatCount(count),
           style: GoogleFonts.plusJakartaSans(
-            fontSize: 12.5,
-            fontWeight: FontWeight.w600,
-            color: itemColor == AppColors.error
-                ? AppColors.error
-                : AppColors.textSecondary,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: countColor,
           ),
         ),
       ],
