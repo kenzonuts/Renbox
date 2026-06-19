@@ -309,6 +309,11 @@ class _RegisterPanel extends StatelessWidget {
                         color: const Color(0xFF7B8190),
                         size: 18,
                       ),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(
+                        minWidth: 38,
+                        minHeight: 38,
+                      ),
                     ),
                     validator: (value) => value == null || value.length < 8
                         ? 'Minimal 8 karakter'
@@ -329,6 +334,11 @@ class _RegisterPanel extends StatelessWidget {
                             : Icons.visibility_off_outlined,
                         color: const Color(0xFF7B8190),
                         size: 18,
+                      ),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(
+                        minWidth: 38,
+                        minHeight: 38,
                       ),
                     ),
                     validator: (value) => value != passwordController.text
@@ -457,6 +467,10 @@ class _RegisterTextField extends StatelessWidget {
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 46),
           suffixIcon: suffix,
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 42,
+            minHeight: 42,
+          ),
           errorStyle: const TextStyle(fontSize: 0, height: 0),
           filled: true,
           fillColor: Colors.white,

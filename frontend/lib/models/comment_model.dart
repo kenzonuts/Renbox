@@ -1,4 +1,4 @@
-*import 'profile_model.dart';
+import 'profile_model.dart';
 
 class CommentModel {
   CommentModel({

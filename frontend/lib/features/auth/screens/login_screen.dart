@@ -197,9 +197,12 @@ class _LoginPanel extends StatelessWidget {
         builder: (context, constraints) {
           return Stack(
             children: [
-              FittedBox(
-                alignment: Alignment.topCenter,
-                fit: BoxFit.scaleDown,
+              SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.viewInsetsOf(context).bottom + 24,
+                ),
                 child: SizedBox(
                   width: constraints.maxWidth,
                   child: Column(
@@ -266,6 +269,11 @@ class _LoginPanel extends StatelessWidget {
                                 : Icons.visibility_off_outlined,
                             color: const Color(0xFF7B8190),
                             size: 18,
+                          ),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(
+                            minWidth: 38,
+                            minHeight: 38,
                           ),
                         ),
                         validator: (value) => value == null || value.length < 6
@@ -436,6 +444,10 @@ class _LoginTextField extends StatelessWidget {
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 46),
           suffixIcon: suffix,
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 42,
+            minHeight: 42,
+          ),
           errorStyle: const TextStyle(fontSize: 0, height: 0),
           filled: true,
           fillColor: Colors.white,

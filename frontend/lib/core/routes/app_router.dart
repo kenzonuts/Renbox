@@ -50,6 +50,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         return '/login';
       }
 
+      if (isAuth && isAuthRoute) {
+        return '/interests';
+      }
+
       if (isAuth && (path == '/' || path == '/onboarding')) {
         return '/main';
       }

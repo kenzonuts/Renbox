@@ -52,6 +52,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       return;
     }
 
+    if (AppConstants.useDummyAuth) {
+      state = state.copyWith(status: AuthStatus.unauthenticated);
+      return;
+    }
+
     final loggedIn = await _storage.isLoggedIn();
     if (!loggedIn) {
       state = state.copyWith(status: AuthStatus.unauthenticated);
@@ -68,6 +73,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<bool> login(String email, String password) async {
     state = state.copyWith(isLoading: true, error: null);
+    if (AppConstants.useDummyAuth) {
+      await Future<void>.delayed(const Duration(milliseconds: 450));
+      await _storage.saveTokens(accessToken: 'dummy_access_token');
+      state = AuthState(
+        status: AuthStatus.authenticated,
+        profile: DummyData.demoProfile,
+      );
+      return true;
+    }
+
     try {
       final res = await _api.login({'email': email, 'password': password});
       final data = res['data'] as Map<String, dynamic>;
@@ -95,6 +110,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String username,
   }) async {
     state = state.copyWith(isLoading: true, error: null);
+    if (AppConstants.useDummyAuth) {
+      await Future<void>.delayed(const Duration(milliseconds: 450));
+      await _storage.saveTokens(accessToken: 'dummy_access_token');
+      state = AuthState(
+        status: AuthStatus.authenticated,
+        profile: DummyData.demoProfile,
+      );
+      return true;
+    }
+
     try {
       final res = await _api.register({
         'email': email,
