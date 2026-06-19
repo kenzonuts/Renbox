@@ -45,8 +45,11 @@ Edit `lib/core/constants/app_constants.dart`:
 ### Run
 
 ```bash
-flutter run
+# Dari folder frontend/ (bukan root repo)
+flutter run -d web-server --web-port=8080
 ```
+
+Web: buka `http://localhost:8080`
 
 ## Screens (MVP)
 

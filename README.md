@@ -20,7 +20,7 @@ Supabase (PostgreSQL + Auth + Storage)
 Renbox/
 ├── supabase/          # SQL schema, seed, storage policies
 ├── backend/           # Express + TypeScript API
-├── frontend/          # Flutter mobile app
+├── frontend/          # Flutter app (jalankan dari sini)
 └── README.md
 ```
 
@@ -49,15 +49,17 @@ npm run dev
 API: `http://localhost:3000`  
 Health: `GET /health`
 
-### 3. Flutter
+### 3. Flutter (RENBOK App)
+
+> **Penting:** Selalu jalankan Flutter dari folder `frontend/`, bukan dari root repo.
 
 ```bash
 cd frontend
-flutter create . --project-name renbok   # jika belum ada folder platform
 flutter pub get
-# Edit lib/core/constants/app_constants.dart → apiBaseUrl
-flutter run
+flutter run -d web-server --web-port=8080
 ```
+
+Buka `http://localhost:8080` di browser.
 
 ## Documentation
 
@@ -98,4 +100,3 @@ flutter run
 ## License
 
 MIT
-# Renbox

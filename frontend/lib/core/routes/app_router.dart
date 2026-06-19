@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/constants/app_constants.dart';
@@ -21,7 +20,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: AppConstants.requireAuth ? '/' : '/main',
+    initialLocation: AppConstants.requireAuth ? '/login' : '/main',
     debugLogDiagnostics: true,
     redirect: (context, state) {
       if (!AppConstants.requireAuth) {
@@ -41,20 +40,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       final path = state.matchedLocation;
       final isAuth = authState.status == AuthStatus.authenticated;
       final isAuthRoute = path == '/login' || path == '/register';
-      final isPublicRoute = path == '/' ||
-          path == '/onboarding' ||
-          isAuthRoute ||
-          path == '/interests';
+      final isPublicRoute = path == '/' || path == '/onboarding' || isAuthRoute;
 
-      if (authState.status == AuthStatus.unknown && path != '/') {
-        return '/';
+      if (authState.status == AuthStatus.unknown) {
+        return isPublicRoute ? null : '/login';
       }
 
-      if (!isAuth && !isPublicRoute && path.startsWith('/main')) {
+      if (!isAuth && !isPublicRoute) {
         return '/login';
       }
 
-      if (isAuth && isAuthRoute) {
+      if (isAuth && (path == '/' || path == '/onboarding')) {
         return '/main';
       }
 
@@ -62,10 +58,12 @@ final routerProvider = Provider<GoRouter>((ref) {
     },
     routes: [
       GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
-      GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
+      GoRoute(
+          path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
       GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
-      GoRoute(path: '/interests', builder: (_, __) => const InterestSetupScreen()),
+      GoRoute(
+          path: '/interests', builder: (_, __) => const InterestSetupScreen()),
       GoRoute(
         path: '/upload-post',
         builder: (_, __) => const UploadPostScreen(),

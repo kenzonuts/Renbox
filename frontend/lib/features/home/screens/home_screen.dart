@@ -52,7 +52,7 @@ class HomeScreen extends ConsumerWidget {
                               icon: Icons.search_rounded,
                               onTap: () => context.go('/main/explore'),
                             ),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: 8),
                             Stack(
                               clipBehavior: Clip.none,
                               children: [
@@ -61,11 +61,11 @@ class HomeScreen extends ConsumerWidget {
                                   onTap: () => context.go('/main/activity'),
                                 ),
                                 Positioned(
-                                  right: 11,
-                                  top: 11,
+                                  right: 9,
+                                  top: 9,
                                   child: Container(
-                                    width: 7,
-                                    height: 7,
+                                    width: 6,
+                                    height: 6,
                                     decoration: const BoxDecoration(
                                       color: AppColors.notificationDot,
                                       shape: BoxShape.circle,
@@ -235,22 +235,22 @@ class _IconButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(20),
         child: Container(
-          width: 44,
-          height: 44,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColors.deepForest.withValues(alpha: 0.08),
-                blurRadius: 12,
-                offset: const Offset(0, 3),
+                color: AppColors.deepForest.withValues(alpha: 0.14),
+                blurRadius: 14,
+                offset: const Offset(0, 5),
               ),
             ],
           ),
-          child: Icon(icon, color: AppColors.deepForest, size: 21),
+          child: Icon(icon, color: AppColors.deepForest, size: 19),
         ),
       ),
     );

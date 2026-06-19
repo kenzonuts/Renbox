@@ -72,7 +72,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       icon: Icons.search_rounded,
                       onTap: () {},
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -81,11 +81,11 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                           onTap: () => context.go('/main/activity'),
                         ),
                         Positioned(
-                          right: 11,
-                          top: 11,
+                          right: 9,
+                          top: 9,
                           child: Container(
-                            width: 7,
-                            height: 7,
+                            width: 6,
+                            height: 6,
                             decoration: const BoxDecoration(
                               color: AppColors.notificationDot,
                               shape: BoxShape.circle,
@@ -177,7 +177,8 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         filled: true,
                         fillColor: Colors.white,
                         isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 14),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
                           borderSide: BorderSide(
@@ -227,8 +228,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                       selected: selected,
                       onTap: () {
                         setState(() {
-                          _selectedCategory =
-                              selected ? null : cat.apiValue;
+                          _selectedCategory = selected ? null : cat.apiValue;
                         });
                       },
                     );
@@ -251,8 +251,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   height: 220,
                   child: LoadingView(message: 'Memuat destinasi...'),
                 ),
-                error: (_, __) =>
-                    ExplorePopularCarousel(locations: weekly),
+                error: (_, __) => ExplorePopularCarousel(locations: weekly),
                 data: (_) => ExplorePopularCarousel(locations: weekly),
               ),
             ),
@@ -368,8 +367,7 @@ class _OtherDestinationsGrid extends StatelessWidget {
         childAspectRatio: 0.58,
       ),
       delegate: SliverChildBuilderDelegate(
-        (context, index) =>
-            ExploreDestinationCard(location: locations[index]),
+        (context, index) => ExploreDestinationCard(location: locations[index]),
         childCount: locations.length,
       ),
     );
@@ -388,22 +386,22 @@ class _IconButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(20),
         child: Container(
-          width: 44,
-          height: 44,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColors.deepForest.withValues(alpha: 0.08),
-                blurRadius: 12,
-                offset: const Offset(0, 3),
+                color: AppColors.deepForest.withValues(alpha: 0.14),
+                blurRadius: 14,
+                offset: const Offset(0, 5),
               ),
             ],
           ),
-          child: Icon(icon, color: AppColors.deepForest, size: 21),
+          child: Icon(icon, color: AppColors.deepForest, size: 19),
         ),
       ),
     );
