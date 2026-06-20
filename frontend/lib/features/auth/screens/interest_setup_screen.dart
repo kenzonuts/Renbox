@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../core/constants/categories.dart';
 import '../../../core/constants/app_constants.dart';
@@ -296,7 +299,7 @@ class _InterestPanel extends StatelessWidget {
   }
 }
 
-class _ProfileSetupStep extends StatelessWidget {
+class _ProfileSetupStep extends StatefulWidget {
   const _ProfileSetupStep({
     required this.height,
     required this.onBack,
@@ -310,11 +313,39 @@ class _ProfileSetupStep extends StatelessWidget {
   final Future<void> Function({bool skip}) onContinue;
 
   @override
+  State<_ProfileSetupStep> createState() => _ProfileSetupStepState();
+}
+
+class _ProfileSetupStepState extends State<_ProfileSetupStep> {
+  final ImagePicker _imagePicker = ImagePicker();
+  Uint8List? _profileImageBytes;
+
+  Future<void> _pickProfileImage() async {
+    try {
+      final image = await _imagePicker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 85,
+        maxWidth: 1200,
+      );
+
+      if (image != null) {
+        final bytes = await image.readAsBytes();
+        if (mounted) setState(() => _profileImageBytes = bytes);
+      }
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Foto tidak dapat dipilih. Coba lagi.')),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final headerHeight = (height * 0.29).clamp(230.0, 285.0);
+    final headerHeight = (widget.height * 0.29).clamp(230.0, 285.0);
 
     return SizedBox(
-      height: height,
+      height: widget.height,
       child: Stack(
         children: [
           SizedBox(
@@ -347,7 +378,7 @@ class _ProfileSetupStep extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: onBack,
+                    onPressed: widget.onBack,
                     icon: const Icon(Icons.arrow_back_rounded),
                     color: const Color(0xFF101820),
                     iconSize: 28,
@@ -359,7 +390,7 @@ class _ProfileSetupStep extends StatelessWidget {
                   ),
                   const Spacer(),
                   TextButton(
-                    onPressed: onSkip,
+                    onPressed: widget.onSkip,
                     style: TextButton.styleFrom(
                       foregroundColor: AppColors.deepForest,
                       textStyle: GoogleFonts.plusJakartaSans(
@@ -379,29 +410,41 @@ class _ProfileSetupStep extends StatelessWidget {
             right: 0,
             child: Column(
               children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: 126,
-                      height: 126,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withValues(alpha: 0.55),
-                        border: Border.all(color: Colors.white, width: 8),
+                GestureDetector(
+                  onTap: _pickProfileImage,
+                  behavior: HitTestBehavior.opaque,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        width: 126,
+                        height: 126,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.55),
+                          border: Border.all(color: Colors.white, width: 8),
+                          image: _profileImageBytes == null
+                              ? null
+                              : DecorationImage(
+                                  image: MemoryImage(_profileImageBytes!),
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                        child: _profileImageBytes == null
+                            ? Icon(
+                                Icons.person_rounded,
+                                size: 78,
+                                color: Colors.grey.shade300,
+                              )
+                            : null,
                       ),
-                      child: Icon(
-                        Icons.person_rounded,
-                        size: 78,
-                        color: Colors.grey.shade300,
+                      const Positioned(
+                        right: -2,
+                        bottom: 10,
+                        child: _CameraBadge(size: 44),
                       ),
-                    ),
-                    Positioned(
-                      right: -2,
-                      bottom: 10,
-                      child: _CameraBadge(size: 44),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -417,7 +460,10 @@ class _ProfileSetupStep extends StatelessWidget {
           ),
           Positioned.fill(
             top: headerHeight,
-            child: _ProfilePanel(onContinue: () => onContinue()),
+            child: _ProfilePanel(
+              onContinue: () => widget.onContinue(),
+              profileImageBytes: _profileImageBytes,
+            ),
           ),
         ],
       ),
@@ -426,9 +472,13 @@ class _ProfileSetupStep extends StatelessWidget {
 }
 
 class _ProfilePanel extends StatelessWidget {
-  const _ProfilePanel({required this.onContinue});
+  const _ProfilePanel({
+    required this.onContinue,
+    required this.profileImageBytes,
+  });
 
   final VoidCallback onContinue;
+  final Uint8List? profileImageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -459,7 +509,7 @@ class _ProfilePanel extends StatelessWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 30, 24, 14),
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -482,35 +532,35 @@ class _ProfilePanel extends StatelessWidget {
                       color: const Color(0xFF626A76),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   const _ProfileInput(
                     label: 'Nama Lengkap',
                     value: 'Kenzo',
                     icon: Icons.person_outline_rounded,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   const _ProfileInput(
                     label: 'Username',
                     value: '@kenzonuts',
                     icon: Icons.alternate_email_rounded,
                     trailing: Icons.check_circle_outline_rounded,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   const _ProfileInput(
                     label: 'Kota',
                     value: 'Semarang, Indonesia',
                     icon: Icons.location_on_outlined,
                     trailing: Icons.keyboard_arrow_down_rounded,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   const _ProfileInput(
                     label: 'Bio (opsional)',
                     value: 'Pecinta alam dan pemburu sunrise.',
                     icon: Icons.edit_outlined,
-                    minHeight: 92,
+                    minHeight: 76,
                     counter: '36/80',
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
                   Text(
                     'Preview Profil',
                     style: GoogleFonts.plusJakartaSans(
@@ -520,14 +570,14 @@ class _ProfilePanel extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const _ProfilePreviewCard(),
+                  _ProfilePreviewCard(imageBytes: profileImageBytes),
                 ],
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-            child: _ContinueButton(onPressed: onContinue),
+            child: _ContinueButton(onPressed: onContinue, compact: true),
           ),
         ],
       ),
@@ -541,7 +591,7 @@ class _ProfileInput extends StatelessWidget {
     required this.value,
     required this.icon,
     this.trailing,
-    this.minHeight = 64,
+    this.minHeight = 52,
     this.counter,
   });
 
@@ -565,19 +615,19 @@ class _ProfileInput extends StatelessWidget {
             color: const Color(0xFF58606C),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Container(
           constraints: BoxConstraints(minHeight: minHeight),
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: const Color(0xFFE7E7E7)),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.07),
-                blurRadius: 14,
-                offset: const Offset(0, 5),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -588,14 +638,14 @@ class _ProfileInput extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: counter == null ? 0 : 3),
-                child: Icon(icon, size: 24, color: const Color(0xFF101820)),
+                child: Icon(icon, size: 20, color: const Color(0xFF101820)),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   value,
                   style: GoogleFonts.plusJakartaSans(
-                    fontSize: 16,
+                    fontSize: 14,
                     height: 1.35,
                     fontWeight: FontWeight.w700,
                     color: const Color(0xFF101820),
@@ -605,7 +655,7 @@ class _ProfileInput extends StatelessWidget {
               if (trailing != null)
                 Icon(
                   trailing,
-                  size: 25,
+                  size: 21,
                   color: trailing == Icons.check_circle_outline_rounded
                       ? AppColors.deepForest
                       : const Color(0xFF101820),
@@ -631,7 +681,9 @@ class _ProfileInput extends StatelessWidget {
 }
 
 class _ProfilePreviewCard extends StatelessWidget {
-  const _ProfilePreviewCard();
+  const _ProfilePreviewCard({this.imageBytes});
+
+  final Uint8List? imageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -655,13 +707,20 @@ class _ProfilePreviewCard extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               ClipOval(
-                child: Image.asset(
-                  'img/img-minat/minat.png',
-                  width: 82,
-                  height: 82,
-                  fit: BoxFit.cover,
-                  alignment: const Alignment(-0.7, 0.05),
-                ),
+                child: imageBytes == null
+                    ? Image.asset(
+                        'img/img-minat/minat.png',
+                        width: 82,
+                        height: 82,
+                        fit: BoxFit.cover,
+                        alignment: const Alignment(-0.7, 0.05),
+                      )
+                    : Image.memory(
+                        imageBytes!,
+                        width: 82,
+                        height: 82,
+                        fit: BoxFit.cover,
+                      ),
               ),
               Positioned(
                 right: -4,
@@ -917,9 +976,10 @@ class _InterestCard extends StatelessWidget {
 }
 
 class _ContinueButton extends StatelessWidget {
-  const _ContinueButton({required this.onPressed});
+  const _ContinueButton({required this.onPressed, this.compact = false});
 
   final VoidCallback onPressed;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -928,12 +988,12 @@ class _ContinueButton extends StatelessWidget {
         gradient: const LinearGradient(
           colors: [Color(0xFF145A36), Color(0xFF2E7A4A)],
         ),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(compact ? 22 : 26),
         boxShadow: [
           BoxShadow(
             color: AppColors.forestGreen.withValues(alpha: 0.22),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
+            blurRadius: compact ? 12 : 16,
+            offset: Offset(0, compact ? 5 : 8),
           ),
         ],
       ),
@@ -944,9 +1004,10 @@ class _ContinueButton extends StatelessWidget {
           shadowColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(48),
+          minimumSize: Size.fromHeight(compact ? 44 : 48),
+          padding: EdgeInsets.symmetric(horizontal: compact ? 16 : 20),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
+            borderRadius: BorderRadius.circular(compact ? 22 : 26),
           ),
         ),
         child: Stack(
@@ -956,16 +1017,16 @@ class _ContinueButton extends StatelessWidget {
               child: Text(
                 'Lanjutkan',
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: 17,
+                  fontSize: compact ? 15 : 17,
                   fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.centerRight,
               child: Icon(
                 Icons.arrow_forward_rounded,
-                size: 24,
+                size: compact ? 20 : 24,
                 color: Colors.white,
               ),
             ),
