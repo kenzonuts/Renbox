@@ -16,40 +16,39 @@ class DummyData {
       );
 
   static LocationModel get featuredLocation => LocationModel(
-        id: '1',
-        name: 'Gunung Rinjani',
-        slug: 'gunung-rinjani',
+        id: '2',
+        name: 'Gunung Prau',
+        slug: 'gunung-prau',
         category: 'mountain',
-        province: 'Nusa Tenggara Barat',
-        city: 'Lombok',
-        altitude: 3726,
-        difficulty: 'extreme',
-        duration: '2–3 Hari',
+        province: 'Jawa Tengah',
+        city: 'Dieng',
+        altitude: 2565,
+        difficulty: 'medium',
+        duration: '1 Hari',
         ratingAverage: 4.9,
-        reviewsCount: 1200,
+        reviewsCount: 890,
         coverImageUrl:
-            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
-        description:
-            'Gunung berapi aktif tertinggi kedua di Indonesia.',
+            'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
+        description: 'Savana ikonik dengan pemandangan lautan awan.',
       );
 
   static List<LocationModel> get featuredLocations => [
         featuredLocation,
         LocationModel(
-          id: '2',
-          name: 'Gunung Prau',
-          slug: 'gunung-prau',
+          id: '11',
+          name: 'Gunung Andong',
+          slug: 'gunung-andong',
           category: 'mountain',
           province: 'Jawa Tengah',
-          city: 'Wonosobo',
-          altitude: 2565,
-          difficulty: 'medium',
-          duration: '1 Hari',
-        ratingAverage: 4.9,
-        reviewsCount: 890,
-        coverImageUrl:
-            'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
-      ),
+          city: 'Magelang',
+          altitude: 1726,
+          difficulty: 'easy',
+          duration: '2–3 Jam',
+          ratingAverage: 4.8,
+          reviewsCount: 640,
+          coverImageUrl:
+              'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+        ),
         LocationModel(
           id: '3',
           name: 'Danau Toba',
@@ -190,7 +189,7 @@ class DummyData {
           imageUrl:
               'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=600',
           caption:
-              'Pagi yang sempurna di Coban Rondo 🌿💧\nAirnya jernih, udaranya segar banget!',
+              'Sunrise di babon 2 Merbabu tidak pernah gagal! ✨',
           likesCount: 1200,
           commentsCount: 56,
           sharesCount: 120,

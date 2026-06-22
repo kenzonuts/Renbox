@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/constants/app_layout.dart';
+
 import '../../../core/theme/app_colors.dart';
-import 'bottom_nav_bar_shape.dart';
 
 class PremiumBottomNav extends StatelessWidget {
   const PremiumBottomNav({
@@ -15,184 +14,155 @@ class PremiumBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  static const _items = [
-    _NavItemData(
-      label: 'Home',
-      outlinedIcon: Icons.home_outlined,
-      filledIcon: Icons.home_rounded,
-    ),
-    _NavItemData(
-      label: 'Explore',
-      outlinedIcon: Icons.explore_outlined,
-      filledIcon: Icons.explore_rounded,
-    ),
-    _NavItemData(
-      label: 'Activity',
-      outlinedIcon: Icons.favorite_outline_rounded,
-      filledIcon: Icons.favorite_rounded,
-    ),
-    _NavItemData(
-      label: 'Profile',
-      outlinedIcon: Icons.person_outline_rounded,
-      filledIcon: Icons.person_rounded,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final safeBottom = MediaQuery.paddingOf(context).bottom;
-    final barHeight = AppLayout.bottomNavHeight + safeBottom;
 
     return SizedBox(
-      height: AppLayout.bottomNavTotalHeight(context),
+      height: 104 + safeBottom,
       child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.bottomCenter,
+        alignment: Alignment.topCenter,
         children: [
-          // Bottom bar — lingkaran memotong tepi atas
           Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: BottomNavBarShape(
-              height: barHeight,
-              child: Column(
+            left: 12,
+            right: 12,
+            bottom: safeBottom + 6,
+            child: Container(
+              height: 86,
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x18000000),
+                    blurRadius: 24,
+                    offset: Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Row(
                 children: [
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _NavTab(
-                              item: _items[0],
-                              selected: currentIndex == 0,
-                              onTap: () => onTap(0),
-                            ),
-                          ),
-                          Expanded(
-                            child: _NavTab(
-                              item: _items[1],
-                              selected: currentIndex == 1,
-                              onTap: () => onTap(1),
-                            ),
-                          ),
-                          SizedBox(width: AppLayout.createButtonSize + 8),
-                          Expanded(
-                            child: _NavTab(
-                              item: _items[2],
-                              selected: currentIndex == 3,
-                              onTap: () => onTap(3),
-                            ),
-                          ),
-                          Expanded(
-                            child: _NavTab(
-                              item: _items[3],
-                              selected: currentIndex == 4,
-                              onTap: () => onTap(4),
-                            ),
-                          ),
-                        ],
-                      ),
+                    child: _NavItem(
+                      label: 'Home',
+                      icon: Icons.home_outlined,
+                      selectedIcon: Icons.home_rounded,
+                      selected: currentIndex == 0,
+                      onTap: () => _select(0),
                     ),
                   ),
-                  if (safeBottom > 0)
-                    SizedBox(height: safeBottom - 4)
-                  else
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: Container(
-                        width: 134,
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: AppColors.deepForest.withValues(alpha: 0.18),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      ),
+                  Expanded(
+                    child: _NavItem(
+                      label: 'Explore',
+                      icon: Icons.explore_outlined,
+                      selectedIcon: Icons.explore_rounded,
+                      selected: currentIndex == 1,
+                      onTap: () => _select(1),
                     ),
+                  ),
+                  const SizedBox(width: 68),
+                  Expanded(
+                    child: _NavItem(
+                      label: 'Activity',
+                      icon: Icons.notifications_none_rounded,
+                      selectedIcon: Icons.notifications_rounded,
+                      selected: currentIndex == 3,
+                      showDot: currentIndex != 3,
+                      onTap: () => _select(3),
+                    ),
+                  ),
+                  Expanded(
+                    child: _NavItem(
+                      label: 'Profile',
+                      icon: Icons.person_outline_rounded,
+                      selectedIcon: Icons.person_rounded,
+                      selected: currentIndex == 4,
+                      onTap: () => _select(4),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          // Tombol Create — center tepat di garis potong bar (y = protrusion)
           Positioned(
-            top: AppLayout.createButtonOffsetY,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: _CreateFab(onTap: () => onTap(2)),
+            top: 0,
+            child: _GuideButton(
+              selected: currentIndex == 2,
+              onTap: () => _select(2),
             ),
           ),
         ],
       ),
     );
   }
+
+  void _select(int index) {
+    HapticFeedback.lightImpact();
+    onTap(index);
+  }
 }
 
-class _NavItemData {
-  const _NavItemData({
+class _NavItem extends StatelessWidget {
+  const _NavItem({
     required this.label,
-    required this.outlinedIcon,
-    required this.filledIcon,
+    required this.icon,
+    required this.selectedIcon,
+    required this.selected,
+    required this.onTap,
+    this.showDot = false,
   });
 
   final String label;
-  final IconData outlinedIcon;
-  final IconData filledIcon;
-}
-
-class _NavTab extends StatelessWidget {
-  const _NavTab({
-    required this.item,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final _NavItemData item;
+  final IconData icon;
+  final IconData selectedIcon;
   final bool selected;
+  final bool showDot;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.forestGreen : AppColors.textMuted;
+    final color = selected ? AppColors.deepForest : const Color(0xFF6B7280);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
-          HapticFeedback.lightImpact();
-          onTap();
-        },
-        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
         child: SizedBox(
-          height: AppLayout.bottomNavHeight,
+          height: 74,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                selected ? item.filledIcon : item.outlinedIcon,
-                color: color,
-                size: selected ? 25 : 24,
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Icon(selected ? selectedIcon : icon, size: 23, color: color),
+                  if (showDot)
+                    Positioned(
+                      right: -3,
+                      top: -2,
+                      child: Container(
+                        width: 7,
+                        height: 7,
+                        decoration: BoxDecoration(
+                          color: AppColors.notificationDot,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 1),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-              const SizedBox(height: 3),
+              const SizedBox(height: 5),
               Text(
-                item.label,
+                label,
+                maxLines: 1,
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: 10,
-                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                  fontSize: 9,
+                  height: 1,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                   color: color,
-                  height: 1.1,
-                ),
-              ),
-              const SizedBox(height: 4),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 220),
-                curve: Curves.easeOutCubic,
-                width: selected ? 4 : 0,
-                height: selected ? 4 : 0,
-                decoration: const BoxDecoration(
-                  color: AppColors.forestGreen,
-                  shape: BoxShape.circle,
                 ),
               ),
             ],
@@ -203,54 +173,51 @@ class _NavTab extends StatelessWidget {
   }
 }
 
-class _CreateFab extends StatefulWidget {
-  const _CreateFab({required this.onTap});
+class _GuideButton extends StatelessWidget {
+  const _GuideButton({required this.selected, required this.onTap});
 
+  final bool selected;
   final VoidCallback onTap;
 
   @override
-  State<_CreateFab> createState() => _CreateFabState();
-}
-
-class _CreateFabState extends State<_CreateFab> {
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _pressed = true),
-      onTapUp: (_) => setState(() => _pressed = false),
-      onTapCancel: () => setState(() => _pressed = false),
-      onTap: () {
-        HapticFeedback.mediumImpact();
-        widget.onTap();
-      },
-      child: AnimatedScale(
-        scale: _pressed ? 0.94 : 1.0,
-        duration: const Duration(milliseconds: 120),
-        curve: Curves.easeOutCubic,
-        child: Container(
-          width: AppLayout.createButtonSize,
-          height: AppLayout.createButtonSize,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.deepForest,
-            border: Border.all(color: Colors.white, width: 3),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.deepForest.withValues(alpha: 0.28),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.add_rounded,
-            color: Colors.white,
-            size: 30,
+  Widget build(BuildContext context) => Semantics(
+        button: true,
+        label: 'Guide',
+        child: GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            width: 62,
+            height: 62,
+            decoration: BoxDecoration(
+              color: selected ? AppColors.forestGreen : AppColors.deepForest,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white, width: 4),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x382D6A4F),
+                  blurRadius: 18,
+                  offset: Offset(0, 7),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.landscape_rounded,
+                    color: Colors.white, size: 25),
+                const SizedBox(height: 1),
+                Text(
+                  'Guide',
+                  style: GoogleFonts.plusJakartaSans(
+                    color: Colors.white,
+                    fontSize: 8,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
