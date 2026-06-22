@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constants/app_layout.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/loading_view.dart';
-import '../../../core/widgets/renbok_logo.dart';
 import '../../../models/location_model.dart';
 import '../../../models/post_model.dart';
 import '../../auth/providers/auth_provider.dart';
@@ -43,16 +42,15 @@ class HomeScreen extends ConsumerWidget {
               child: _ImmersiveHeroHeader(
                 featured: state.featured,
                 avatarUrl: profile?.avatarUrl,
-                userName: profile?.fullName ?? 'Kenzo',
               ),
             ),
             SliverToBoxAdapter(
               child: Container(
-                transform: Matrix4.translationValues(0, -12, 0),
+                transform: Matrix4.translationValues(0, -16, 0),
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                 decoration: const BoxDecoration(
                   color: Color(0xFFFCFAF7),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(56)),
                 ),
                 child: Column(
                   children: [
@@ -90,25 +88,14 @@ class _ImmersiveHeroHeader extends StatelessWidget {
   const _ImmersiveHeroHeader({
     required this.featured,
     this.avatarUrl,
-    required this.userName,
   });
 
   final LocationModel? featured;
   final String? avatarUrl;
-  final String userName;
-
-  String get _greeting {
-    final h = DateTime.now().hour;
-    if (h < 11) return 'Selamat Pagi';
-    if (h < 15) return 'Selamat Siang';
-    if (h < 18) return 'Selamat Sore';
-    return 'Selamat Malam';
-  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    final heroHeight = (size.height * 0.48).clamp(390.0, 440.0);
+    const heroHeight = 240.0;
     final destName = featured?.name ?? 'Gunung Prau';
     final destLocation = featured?.locationLine.isNotEmpty == true
         ? featured!.locationLine
@@ -166,14 +153,21 @@ class _ImmersiveHeroHeader extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 5, 18, 28),
+              padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const RenbokLogo(size: 19, showSubtitle: true),
+                      SizedBox(
+                        width: 130,
+                        height: 34,
+                        child: Image.asset(
+                          'img/logo/Logo.png',
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
                       const Spacer(),
                       _HeroHeaderIcon(
                         icon: Icons.search_rounded,
@@ -266,104 +260,6 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 11),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2.5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.12),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                          image: avatarUrl != null
-                              ? DecorationImage(
-                                  image: NetworkImage(avatarUrl!),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                          color: AppColors.stone,
-                        ),
-                        child: avatarUrl == null
-                            ? const Icon(Icons.person, color: _green, size: 19)
-                            : null,
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '$_greeting,',
-                              style: GoogleFonts.plusJakartaSans(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                                color: _green.withValues(alpha: 0.85),
-                                height: 1.1,
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  userName,
-                                  style: GoogleFonts.dmSerifDisplay(
-                                    fontSize: 26,
-                                    color: _green,
-                                    height: 1.05,
-                                  ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 4, bottom: 3),
-                                  child: Text(
-                                    '🌿',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 3),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 9,
-                                vertical: 3,
-                              ),
-                              decoration: BoxDecoration(
-                                color: _green,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.shield_outlined,
-                                    size: 11,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    'Level 7 Explorer',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 12),
                   GestureDetector(
                     onTap: () => context.push('/location/$slug'),
@@ -381,24 +277,24 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(22),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                          filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                           child: Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.all(14),
+                            padding: const EdgeInsets.all(9),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
                                 colors: [
-                                  Color(0x3D0A1E16),
-                                  Color(0x850A1E16),
-                                  Color(0xB80A1E16),
+                                  Color(0x940A1E16),
+                                  Color(0x330A1E16),
+                                  Color(0x000A1E16),
                                 ],
-                                stops: [0.0, 0.58, 1.0],
+                                stops: [0.0, 0.38, 0.72],
                               ),
                               borderRadius: BorderRadius.circular(22),
                               border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.12),
+                                color: Colors.transparent,
                               ),
                             ),
                             child: Column(
@@ -435,16 +331,16 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 7),
+                                const SizedBox(height: 5),
                                 Text(
                                   destName,
                                   style: GoogleFonts.dmSerifDisplay(
-                                    fontSize: 28,
+                                    fontSize: 20,
                                     color: Colors.white,
                                     height: 1.0,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 3),
                                 Row(
                                   children: [
                                     Icon(
@@ -465,7 +361,7 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 8),
                                 const Row(
                                   children: [
                                     Expanded(
@@ -492,7 +388,7 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Expanded(
@@ -583,7 +479,11 @@ class _HeroHeaderIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Icon(icon, color: _ink, size: 22),
+      child: SizedBox(
+        width: 34,
+        height: 34,
+        child: Icon(icon, color: _ink, size: 22),
+      ),
     );
   }
 }
