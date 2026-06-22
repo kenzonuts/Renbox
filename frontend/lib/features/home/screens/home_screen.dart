@@ -47,10 +47,18 @@ class HomeScreen extends ConsumerWidget {
             SliverToBoxAdapter(
               child: Container(
                 transform: Matrix4.translationValues(0, -16, 0),
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                clipBehavior: Clip.antiAlias,
+                padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
                 decoration: const BoxDecoration(
                   color: Color(0xFFFCFAF7),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(56)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x1A1B4332),
+                      blurRadius: 30,
+                      offset: Offset(0, -8),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
@@ -544,7 +552,8 @@ class _PassportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 190,
+        height: 140,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
           image: const DecorationImage(
@@ -559,53 +568,76 @@ class _PassportCard extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Row(
-              children: [
-                Text(
-                  '♟  PASSPORT EXPLORER',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
-                    color: _green,
-                    fontWeight: FontWeight.w600,
+            const Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color(0xF2FFFFFF),
+                      Color(0xCFFFFFFF),
+                      Color(0x00FFFFFF),
+                    ],
+                    stops: [0, 0.42, 0.82],
                   ),
                 ),
-                const Spacer(),
-                Text(
-                  'Lihat Detail  →',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
-                    color: _green,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'Koleksi Petualanganmu',
-              style: GoogleFonts.dmSerifDisplay(fontSize: 23, color: _green),
-            ),
-            Text(
-              'Terus jelajahi, kumpulkan lebih banyak momen!',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 11,
-                color: Colors.black54,
               ),
             ),
-            const Spacer(),
-            const Row(
-              children: [
-                _PassportStat(icon: '⛰', count: '12', label: 'Gunung'),
-                _PassportStat(icon: '♨', count: '8', label: 'Air Terjun'),
-                _PassportStat(icon: '⛺', count: '15', label: 'Camping'),
-                _PassportStat(icon: '●', count: '24', label: 'Check-in'),
-                Spacer(),
-                _ProgressRing(),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '♟  PASSPORT EXPLORER',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 8,
+                          color: _green,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        'Lihat Detail  →',
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 8,
+                          color: _green,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    'Koleksi Petualanganmu',
+                    style:
+                        GoogleFonts.dmSerifDisplay(fontSize: 18, color: _green),
+                  ),
+                  Text(
+                    'Terus jelajahi, kumpulkan lebih banyak momen!',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 8.5,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const Spacer(),
+                  const Row(
+                    children: [
+                      _PassportStat(icon: '⛰', count: '12', label: 'Gunung'),
+                      _PassportStat(icon: '♨', count: '8', label: 'Air Terjun'),
+                      _PassportStat(icon: '⛺', count: '15', label: 'Camping'),
+                      _PassportStat(icon: '●', count: '24', label: 'Check-in'),
+                      Spacer(),
+                      _ProgressRing(),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -626,7 +658,7 @@ class _QuickAccess extends StatelessWidget {
               color: Color(0xFFF0F3E9),
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 8),
           Expanded(
             child: _QuickCard(
               icon: '📍',
@@ -635,7 +667,7 @@ class _QuickAccess extends StatelessWidget {
               color: Color(0xFFF8F0E2),
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 8),
           Expanded(
             child: _QuickCard(
               icon: '⛺',
@@ -644,7 +676,7 @@ class _QuickAccess extends StatelessWidget {
               color: Color(0xFFEDF1E8),
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 8),
           Expanded(
             child: _QuickCard(
               icon: '🌤️',
@@ -1007,11 +1039,11 @@ class _QuickCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 148,
-        padding: const EdgeInsets.all(12),
+        height: 108,
+        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 8),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(color: Color(0x0D000000), blurRadius: 9),
           ],
@@ -1019,21 +1051,22 @@ class _QuickCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(icon, style: const TextStyle(fontSize: 29)),
+            Text(icon, style: const TextStyle(fontSize: 21)),
             const Spacer(),
             Text(
               title,
               style: GoogleFonts.plusJakartaSans(
-                fontSize: 13,
+                fontSize: 11,
                 fontWeight: FontWeight.w800,
-                height: 1.25,
+                height: 1.2,
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 3),
             Text(
               detail,
               maxLines: 2,
-              style: GoogleFonts.plusJakartaSans(fontSize: 9, height: 1.4),
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.plusJakartaSans(fontSize: 8, height: 1.25),
             ),
           ],
         ),
@@ -1053,17 +1086,17 @@ class _PassportStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        width: 58,
+        width: 45,
         child: Column(
           children: [
-            Text(icon, style: const TextStyle(fontSize: 18, color: _green)),
+            Text(icon, style: const TextStyle(fontSize: 13, color: _green)),
             Text(
               count,
-              style: GoogleFonts.dmSerifDisplay(fontSize: 21, color: _ink),
+              style: GoogleFonts.dmSerifDisplay(fontSize: 16, color: _ink),
             ),
             Text(
               label,
-              style: const TextStyle(fontSize: 8, color: Colors.black54),
+              style: const TextStyle(fontSize: 6.5, color: Colors.black54),
             ),
           ],
         ),
@@ -1075,17 +1108,17 @@ class _ProgressRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        width: 82,
-        height: 82,
+        width: 58,
+        height: 58,
         child: Stack(
           alignment: Alignment.center,
           children: [
             SizedBox(
-              width: 82,
-              height: 82,
+              width: 58,
+              height: 58,
               child: CircularProgressIndicator(
                 value: 0.68,
-                strokeWidth: 7,
+                strokeWidth: 5,
                 backgroundColor: _green.withValues(alpha: 0.15),
                 color: _green,
               ),
@@ -1096,9 +1129,9 @@ class _ProgressRing extends StatelessWidget {
                 Text(
                   '68%',
                   style:
-                      GoogleFonts.dmSerifDisplay(fontSize: 22, color: _green),
+                      GoogleFonts.dmSerifDisplay(fontSize: 16, color: _green),
                 ),
-                const Text('Progress', style: TextStyle(fontSize: 8)),
+                const Text('Progress', style: TextStyle(fontSize: 6)),
               ],
             ),
           ],
