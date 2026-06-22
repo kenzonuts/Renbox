@@ -364,178 +364,200 @@ class _ImmersiveHeroHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 12),
                   GestureDetector(
                     onTap: () => context.push('/location/$slug'),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-                          decoration: BoxDecoration(
-                            color: const Color(0x660A251D),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.18),
-                            ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x240A1E16),
+                            blurRadius: 24,
+                            offset: Offset(0, 10),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: _green,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.explore_outlined,
-                                      size: 11,
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      'EKSPEDISI MINGGU INI',
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 8,
-                                        fontWeight: FontWeight.w700,
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(22),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0x3D0A1E16),
+                                  Color(0x850A1E16),
+                                  Color(0xB80A1E16),
+                                ],
+                                stops: [0.0, 0.58, 1.0],
+                              ),
+                              borderRadius: BorderRadius.circular(22),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.12),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: _green,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.explore_outlined,
+                                        size: 11,
                                         color: Colors.white,
-                                        letterSpacing: 0.5,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        'EKSPEDISI MINGGU INI',
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+                                          letterSpacing: 0.5,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 7),
+                                Text(
+                                  destName,
+                                  style: GoogleFonts.dmSerifDisplay(
+                                    fontSize: 28,
+                                    color: Colors.white,
+                                    height: 1.0,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_rounded,
+                                      size: 13,
+                                      color:
+                                          Colors.white.withValues(alpha: 0.9),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      destLocation,
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            Colors.white.withValues(alpha: 0.9),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              const SizedBox(height: 7),
-                              Text(
-                                destName,
-                                style: GoogleFonts.dmSerifDisplay(
-                                  fontSize: 28,
-                                  color: Colors.white,
-                                  height: 1.0,
+                                const SizedBox(height: 10),
+                                const Row(
+                                  children: [
+                                    Expanded(
+                                      child: _HeroInfoItem(
+                                        icon: Icons.wb_sunny_outlined,
+                                        label: 'Cuaca',
+                                        value: 'Cerah',
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: _HeroInfoItem(
+                                        icon: Icons.shield_outlined,
+                                        label: 'Status Jalur',
+                                        value: 'Aman',
+                                        valueColor: Color(0xFF74C69D),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: _HeroInfoItem(
+                                        icon: Icons.groups_outlined,
+                                        label: 'Pendaki Minggu Ini',
+                                        value: '128 pendaki',
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on_rounded,
-                                    size: 13,
-                                    color: Colors.white.withValues(alpha: 0.9),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    destLocation,
-                                    style: GoogleFonts.plusJakartaSans(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          Colors.white.withValues(alpha: 0.9),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              const Row(
-                                children: [
-                                  Expanded(
-                                    child: _HeroInfoItem(
-                                      icon: Icons.wb_sunny_outlined,
-                                      label: 'Cuaca',
-                                      value: 'Cerah',
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: _HeroInfoItem(
-                                      icon: Icons.shield_outlined,
-                                      label: 'Status Jalur',
-                                      value: 'Aman',
-                                      valueColor: Color(0xFF74C69D),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: _HeroInfoItem(
-                                      icon: Icons.groups_outlined,
-                                      label: 'Pendaki Minggu Ini',
-                                      value: '128 pendaki',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Material(
-                                      color: _green,
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: InkWell(
-                                        onTap: () =>
-                                            context.push('/location/$slug'),
-                                        borderRadius: BorderRadius.circular(16),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 10,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Lihat Panduan Lengkap',
-                                                style:
-                                                    GoogleFonts.plusJakartaSans(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 42,
+                                        child: Material(
+                                          color: const Color(0xFF2D6A4F),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: InkWell(
+                                            onTap: () =>
+                                                context.push('/location/$slug'),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Lihat Panduan Lengkap',
+                                                  style: GoogleFonts
+                                                      .plusJakartaSans(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(width: 6),
-                                              const Icon(
-                                                Icons.arrow_forward_rounded,
-                                                color: Colors.white,
-                                                size: 15,
-                                              ),
-                                            ],
+                                                const SizedBox(width: 6),
+                                                const Icon(
+                                                  Icons.arrow_forward_rounded,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Container(
-                                    width: 38,
-                                    height: 38,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black
-                                              .withValues(alpha: 0.12),
-                                          blurRadius: 8,
-                                          offset: const Offset(0, 2),
-                                        ),
-                                      ],
+                                    const SizedBox(width: 10),
+                                    Container(
+                                      width: 42,
+                                      height: 42,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black
+                                                .withValues(alpha: 0.12),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Icon(
+                                        Icons.bookmark_border_rounded,
+                                        color: _ink,
+                                        size: 19,
+                                      ),
                                     ),
-                                    child: const Icon(
-                                      Icons.bookmark_border_rounded,
-                                      color: _ink,
-                                      size: 19,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
