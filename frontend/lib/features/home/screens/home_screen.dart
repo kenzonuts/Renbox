@@ -47,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
             SliverToBoxAdapter(
               child: Container(
                 transform: Matrix4.translationValues(0, -16, 0),
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 decoration: const BoxDecoration(
                   color: Color(0xFFFCFAF7),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(56)),
