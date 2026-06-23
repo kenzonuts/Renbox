@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/renbok_logo.dart';
+import '../../../core/widgets/app_top_header.dart';
 
 const _heroHeight = 300.0;
 const _passportHeight = 205.0;
@@ -175,79 +175,14 @@ class _ProfileHeader extends StatelessWidget {
       left: 0,
       right: 0,
       top: 0,
-      height: 88,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            const RenbokLogo(size: 31, showSubtitle: true),
-            const Spacer(),
-            _HeaderIcon(
-              icon: Icons.search_rounded,
-              onTap: () => context.go('/main/explore'),
-            ),
-            const SizedBox(width: 15),
-            _HeaderIcon(
-              icon: Icons.notifications_none_rounded,
-              badge: '3',
-              onTap: () => context.go('/main/activity'),
-            ),
-            const SizedBox(width: 15),
-            _HeaderIcon(
-              icon: Icons.settings_outlined,
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HeaderIcon extends StatelessWidget {
-  const _HeaderIcon({required this.icon, required this.onTap, this.badge});
-
-  final IconData icon;
-  final VoidCallback onTap;
-  final String? badge;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 32,
-        height: 40,
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Icon(icon, color: AppColors.deepForest, size: 31),
-            if (badge != null)
-              Positioned(
-                top: 2,
-                right: -2,
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: AppColors.notificationDot,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    badge!,
-                    style: GoogleFonts.plusJakartaSans(
-                      color: Colors.white,
-                      fontSize: 10,
-                      height: 1,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
+      height: 72,
+      child: AppTopHeader(
+        variant: AppTopHeaderVariant.overlay,
+        showProfile: false,
+        trailingIcon: Icons.settings_outlined,
+        onSearchTap: () => context.go('/main/explore'),
+        onNotificationTap: () => context.go('/main/activity'),
+        onTrailingTap: () {},
       ),
     );
   }

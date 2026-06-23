@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constants/app_layout.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/app_top_header.dart';
 import '../../../core/widgets/loading_view.dart';
 import '../../../models/location_model.dart';
 import '../../../models/post_model.dart';
@@ -161,114 +162,19 @@ class _ImmersiveHeroHeader extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
+              padding: const EdgeInsets.only(top: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 130,
-                        height: 34,
-                        child: Image.asset(
-                          'img/logo/Logo.png',
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                      const Spacer(),
-                      _HeroHeaderIcon(
-                        icon: Icons.search_rounded,
-                        onTap: () => context.go('/main/explore'),
-                      ),
-                      const SizedBox(width: 11),
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          _HeroHeaderIcon(
-                            icon: Icons.notifications_outlined,
-                            onTap: () => context.go('/main/activity'),
-                          ),
-                          Positioned(
-                            right: -2,
-                            top: -2,
-                            child: Container(
-                              width: 14,
-                              height: 14,
-                              alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                color: AppColors.notificationDot,
-                                shape: BoxShape.circle,
-                                border: Border.fromBorderSide(
-                                  BorderSide(color: Colors.white, width: 1.5),
-                                ),
-                              ),
-                              child: Text(
-                                '3',
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  height: 1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 11),
-                      GestureDetector(
-                        onTap: () => context.go('/main/profile'),
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Container(
-                              width: 34,
-                              height: 34,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                                image: avatarUrl != null
-                                    ? DecorationImage(
-                                        image: NetworkImage(avatarUrl!),
-                                        fit: BoxFit.cover,
-                                      )
-                                    : null,
-                                color: AppColors.stone,
-                              ),
-                              child: avatarUrl == null
-                                  ? const Icon(
-                                      Icons.person,
-                                      color: AppColors.deepForest,
-                                      size: 18,
-                                    )
-                                  : null,
-                            ),
-                            Positioned(
-                              right: 1,
-                              bottom: 1,
-                              child: Container(
-                                width: 9,
-                                height: 9,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF52B788),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1.5,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  AppTopHeader(
+                    variant: AppTopHeaderVariant.overlay,
+                    horizontalPadding: 18,
+                    avatarUrl: avatarUrl,
+                    onSearchTap: () => context.go('/main/explore'),
+                    onNotificationTap: () => context.go('/main/activity'),
+                    onProfileTap: () => context.go('/main/profile'),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   GestureDetector(
                     onTap: () => context.push('/location/$slug'),
                     child: Container(
@@ -472,25 +378,6 @@ class _ImmersiveHeroHeader extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _HeroHeaderIcon extends StatelessWidget {
-  const _HeroHeaderIcon({required this.icon, required this.onTap});
-
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 34,
-        height: 34,
-        child: Icon(icon, color: _ink, size: 22),
       ),
     );
   }

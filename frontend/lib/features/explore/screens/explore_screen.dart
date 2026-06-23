@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/renbok_logo.dart';
+import '../../../core/widgets/app_top_header.dart';
+import '../../auth/providers/auth_provider.dart';
 
 class ExploreScreen extends ConsumerWidget {
   const ExploreScreen({super.key});
@@ -27,6 +28,8 @@ class ExploreScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(authProvider).profile;
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.transparent,
@@ -39,7 +42,9 @@ class ExploreScreen extends ConsumerWidget {
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              const SliverToBoxAdapter(child: _Header()),
+              SliverToBoxAdapter(
+                child: _Header(avatarUrl: profile?.avatarUrl),
+              ),
               const SliverToBoxAdapter(child: _TitleBlock()),
               const SliverToBoxAdapter(child: _SearchField()),
               const SliverToBoxAdapter(child: _CategoryTabs()),
@@ -93,60 +98,17 @@ class ExploreScreen extends ConsumerWidget {
 }
 
 class _Header extends StatelessWidget {
-  const _Header();
+  const _Header({this.avatarUrl});
+
+  final String? avatarUrl;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 72,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 2),
-              child: RenbokLogo(size: 22, showSubtitle: true),
-            ),
-            const Spacer(),
-            _HeaderIcon(icon: Icons.search_rounded, onTap: () {}),
-            const SizedBox(width: 12),
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                _HeaderIcon(
-                  icon: Icons.notifications_none_rounded,
-                  onTap: () => context.go('/main/activity'),
-                ),
-                Positioned(
-                  top: -1,
-                  right: -1,
-                  child: Container(
-                    height: 15,
-                    constraints: const BoxConstraints(minWidth: 15),
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE11D48),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      '3',
-                      style: GoogleFonts.plusJakartaSans(
-                        color: Colors.white,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 12),
-            const _Avatar(),
-          ],
-        ),
-      ),
+    return AppTopHeader(
+      avatarUrl: avatarUrl,
+      onSearchTap: () {},
+      onNotificationTap: () => context.go('/main/activity'),
+      onProfileTap: () => context.go('/main/profile'),
     );
   }
 }
@@ -1046,62 +1008,6 @@ class _MapPin extends StatelessWidget {
             color: AppColors.deepForest,
             fontSize: 10,
             fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _HeaderIcon extends StatelessWidget {
-  const _HeaderIcon({required this.icon, required this.onTap});
-
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        width: 28,
-        height: 28,
-        child: Icon(icon, color: const Color(0xFF111827), size: 24),
-      ),
-    );
-  }
-}
-
-class _Avatar extends StatelessWidget {
-  const _Avatar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        ClipOval(
-          child: SizedBox(
-            width: 36,
-            height: 36,
-            child: Image.network(
-              'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=160&q=80',
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(color: AppColors.stone),
-            ),
-          ),
-        ),
-        Positioned(
-          right: -1,
-          bottom: -1,
-          child: Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              color: const Color(0xFF22C55E),
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.cream, width: 2),
-            ),
           ),
         ),
       ],

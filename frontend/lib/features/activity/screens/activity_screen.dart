@@ -1,11 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_layout.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/renbok_logo.dart';
+import '../../../core/widgets/app_top_header.dart';
 
 class ActivityScreen extends StatelessWidget {
   const ActivityScreen({super.key});
@@ -37,7 +38,7 @@ class ActivityScreen extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -117,52 +118,11 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 88,
-      child: Row(
-        children: [
-          const Expanded(
-            child: RenbokLogo(size: 28, showSubtitle: true),
-          ),
-          const SizedBox(width: 12),
-          const Icon(Icons.search_rounded, color: Color(0xFF001F1D), size: 34),
-          const SizedBox(width: 16),
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              const Icon(
-                Icons.notifications_none_rounded,
-                color: Color(0xFF001F1D),
-                size: 34,
-              ),
-              Positioned(
-                top: -5,
-                right: -3,
-                child: Container(
-                  width: 18,
-                  height: 18,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: AppColors.notificationDot,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    '3',
-                    style: GoogleFonts.plusJakartaSans(
-                      color: Colors.white,
-                      fontSize: 10,
-                      height: 1,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 16),
-          const _UserAvatar(size: 40, showOnline: true),
-        ],
-      ),
+    return AppTopHeader(
+      horizontalPadding: 0,
+      onSearchTap: () => context.go('/main/explore'),
+      onNotificationTap: () {},
+      onProfileTap: () => context.go('/main/profile'),
     );
   }
 }
@@ -708,7 +668,6 @@ class _UserAvatar extends StatelessWidget {
     required this.size,
     this.badgeColor,
     this.badgeIcon,
-    this.showOnline = false,
     this.person = Icons.person_rounded,
     this.backgroundAlignment = Alignment.center,
   });
@@ -716,7 +675,6 @@ class _UserAvatar extends StatelessWidget {
   final double size;
   final Color? badgeColor;
   final IconData? badgeIcon;
-  final bool showOnline;
   final IconData person;
   final Alignment backgroundAlignment;
 
@@ -762,20 +720,6 @@ class _UserAvatar extends StatelessWidget {
                   border: Border.all(color: Colors.white, width: 4),
                 ),
                 child: Icon(badgeIcon, color: Colors.white, size: 14),
-              ),
-            ),
-          if (showOnline)
-            Positioned(
-              right: -1,
-              bottom: 0,
-              child: Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF45A954),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
               ),
             ),
         ],

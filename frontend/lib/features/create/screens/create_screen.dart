@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/renbok_logo.dart';
+import '../../../core/widgets/app_top_header.dart';
 
 class CreateScreen extends StatelessWidget {
   const CreateScreen({super.key});
@@ -16,7 +16,7 @@ class CreateScreen extends StatelessWidget {
         bottom: false,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(24, 24, 24, 132),
+          padding: EdgeInsets.fromLTRB(20, 24, 20, 132),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,61 +42,11 @@ class _CreateHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Expanded(
-          child: RenbokLogo(size: 32, showSubtitle: true),
-        ),
-        const SizedBox(width: 16),
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.12),
-                    blurRadius: 22,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.notifications_none_rounded,
-                color: Colors.black,
-                size: 29,
-              ),
-            ),
-            Positioned(
-              right: -2,
-              top: -1,
-              child: Container(
-                width: 22,
-                height: 22,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFE63946),
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  '3',
-                  style: GoogleFonts.plusJakartaSans(
-                    color: Colors.white,
-                    fontSize: 12,
-                    height: 1,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
+    return AppTopHeader(
+      horizontalPadding: 0,
+      onSearchTap: () => context.go('/main/explore'),
+      onNotificationTap: () => context.go('/main/activity'),
+      onProfileTap: () => context.go('/main/profile'),
     );
   }
 }
