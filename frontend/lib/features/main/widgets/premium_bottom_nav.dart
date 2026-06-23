@@ -19,7 +19,7 @@ class PremiumBottomNav extends StatelessWidget {
     final safeBottom = MediaQuery.paddingOf(context).bottom;
 
     return SizedBox(
-      height: 110 + safeBottom,
+      height: 116 + safeBottom,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -28,16 +28,18 @@ class PremiumBottomNav extends StatelessWidget {
             right: 0,
             bottom: 0,
             child: Container(
-              height: 88 + safeBottom,
+              height: 92 + safeBottom,
               padding: EdgeInsets.fromLTRB(14, 10, 14, safeBottom + 8),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(32),
-                boxShadow: const [
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(32),
+                ),
+                boxShadow: [
                   BoxShadow(
-                    color: Color(0x22000000),
-                    blurRadius: 26,
-                    offset: Offset(0, -4),
+                    color: Color(0x14000000),
+                    blurRadius: 24,
+                    offset: Offset(0, -8),
                   ),
                 ],
               ),
@@ -206,9 +208,9 @@ class _GuideButton extends StatelessWidget {
               border: Border.all(color: Colors.white, width: 5),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x3A1B4332),
-                  blurRadius: 18,
-                  offset: Offset(0, 8),
+                  color: Color(0x402D6A4F),
+                  blurRadius: 30,
+                  offset: Offset(0, 10),
                 ),
               ],
             ),
