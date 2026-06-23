@@ -19,25 +19,25 @@ class PremiumBottomNav extends StatelessWidget {
     final safeBottom = MediaQuery.paddingOf(context).bottom;
 
     return SizedBox(
-      height: 104 + safeBottom,
+      height: 110 + safeBottom,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
           Positioned(
-            left: 12,
-            right: 12,
-            bottom: safeBottom + 6,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: Container(
-              height: 86,
-              padding: const EdgeInsets.symmetric(horizontal: 7),
+              height: 88 + safeBottom,
+              padding: EdgeInsets.fromLTRB(14, 10, 14, safeBottom + 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(32),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color(0x18000000),
-                    blurRadius: 24,
-                    offset: Offset(0, 8),
+                    color: Color(0x22000000),
+                    blurRadius: 26,
+                    offset: Offset(0, -4),
                   ),
                 ],
               ),
@@ -61,7 +61,7 @@ class PremiumBottomNav extends StatelessWidget {
                       onTap: () => _select(1),
                     ),
                   ),
-                  const SizedBox(width: 68),
+                  const SizedBox(width: 74),
                   Expanded(
                     child: _NavItem(
                       label: 'Activity',
@@ -122,7 +122,7 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.deepForest : const Color(0xFF6B7280);
+    final color = selected ? AppColors.forestGreen : const Color(0xFF6B7280);
 
     return Material(
       color: Colors.transparent,
@@ -130,25 +130,36 @@ class _NavItem extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(20),
         child: SizedBox(
-          height: 74,
+          height: 60,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Icon(selected ? selectedIcon : icon, size: 23, color: color),
+                  Icon(selected ? selectedIcon : icon, size: 22, color: color),
                   if (showDot)
                     Positioned(
-                      right: -3,
-                      top: -2,
+                      right: -8,
+                      top: -5,
                       child: Container(
-                        width: 7,
-                        height: 7,
+                        width: 17,
+                        height: 17,
                         decoration: BoxDecoration(
                           color: AppColors.notificationDot,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 1),
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '3',
+                            style: GoogleFonts.plusJakartaSans(
+                              color: Colors.white,
+                              fontSize: 8,
+                              height: 1,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -159,7 +170,7 @@ class _NavItem extends StatelessWidget {
                 label,
                 maxLines: 1,
                 style: GoogleFonts.plusJakartaSans(
-                  fontSize: 9,
+                  fontSize: 10,
                   height: 1,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                   color: color,
@@ -187,31 +198,34 @@ class _GuideButton extends StatelessWidget {
           onTap: onTap,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
-            width: 62,
-            height: 62,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
-              color: selected ? AppColors.forestGreen : AppColors.deepForest,
+              color: AppColors.forestGreen,
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 4),
+              border: Border.all(color: Colors.white, width: 5),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x382D6A4F),
+                  color: Color(0x3A1B4332),
                   blurRadius: 18,
-                  offset: Offset(0, 7),
+                  offset: Offset(0, 8),
                 ),
               ],
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.landscape_rounded,
-                    color: Colors.white, size: 25),
-                const SizedBox(height: 1),
+                const Icon(
+                  Icons.landscape_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
+                const SizedBox(height: 2),
                 Text(
                   'Guide',
                   style: GoogleFonts.plusJakartaSans(
                     color: Colors.white,
-                    fontSize: 8,
+                    fontSize: 9,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

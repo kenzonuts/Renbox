@@ -695,148 +695,158 @@ class _Recommendations extends StatelessWidget {
   final List<LocationModel> locations;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: 168,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          clipBehavior: Clip.none,
-          itemCount: locations.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 12),
-          itemBuilder: (_, i) {
-            final l = locations[i];
-            final isEasy = l.difficulty == 'easy' || l.difficulty == null;
-            return GestureDetector(
-              onTap: () => context.push('/location/${l.slug}'),
-              child: Container(
-                width: 340,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(color: Color(0x15000000), blurRadius: 12),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(20),
-                      ),
-                      child: l.coverImageUrl != null
-                          ? CachedNetworkImage(
-                              imageUrl: l.coverImageUrl!,
-                              width: 118,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
-                            )
-                          : Container(
-                              width: 118,
-                              color: AppColors.stone,
-                              child: const Icon(Icons.landscape, color: _green),
-                            ),
+  Widget build(BuildContext context) {
+    final cardWidth = (MediaQuery.sizeOf(context).width - 40).clamp(
+      320.0,
+      420.0,
+    );
+    final imageWidth = cardWidth * 0.44;
+
+    return SizedBox(
+      height: 142,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        itemCount: locations.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (_, i) {
+          final l = locations[i];
+          final isEasy = l.difficulty == 'easy' || l.difficulty == null;
+          return GestureDetector(
+            onTap: () => context.push('/location/${l.slug}'),
+            child: Container(
+              width: cardWidth,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(color: Color(0x15000000), blurRadius: 12),
+                ],
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(20),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l.name,
-                              style: GoogleFonts.dmSerifDisplay(
-                                fontSize: 19,
-                                color: _ink,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                    child: l.coverImageUrl != null
+                        ? CachedNetworkImage(
+                            imageUrl: l.coverImageUrl!,
+                            width: imageWidth,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            width: imageWidth,
+                            color: AppColors.stone,
+                            child: const Icon(Icons.landscape, color: _green),
+                          ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 10, 10, 9),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l.name,
+                            style: GoogleFonts.dmSerifDisplay(
+                              fontSize: 19,
+                              color: _ink,
                             ),
-                            const SizedBox(height: 2),
-                            Text(
-                              '● ${l.locationLine}',
-                              maxLines: 1,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '● ${l.locationLine}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 9,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              _TagBadge(
+                                label: isEasy
+                                    ? 'Beginner Friendly'
+                                    : l.difficultyLabel,
+                                isGreen: isEasy,
+                              ),
+                              const SizedBox(width: 6),
+                              if (l.duration != null)
+                                _TagBadge(
+                                  label: l.duration!,
+                                  isGreen: false,
+                                ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Expanded(
+                            child: Text(
+                              l.description?.isNotEmpty == true
+                                  ? l.description!
+                                  : 'Destinasi dengan pemandangan indah, cocok untuk akhir pekan.',
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.plusJakartaSans(
-                                fontSize: 9,
+                                fontSize: 8.5,
                                 color: Colors.black54,
+                                height: 1.35,
                               ),
                             ),
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                _TagBadge(
-                                  label: isEasy
-                                      ? 'Beginner Friendly'
-                                      : l.difficultyLabel,
-                                  isGreen: isEasy,
-                                ),
-                                const SizedBox(width: 6),
-                                if (l.duration != null)
-                                  _TagBadge(
-                                    label: l.duration!,
-                                    isGreen: false,
-                                  ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Expanded(
-                              child: Text(
-                                'Pendakian singkat dengan pemandangan luar biasa — cocok untuk akhir pekan.',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.wb_cloudy_outlined,
+                                size: 13,
+                                color: Colors.black.withValues(alpha: 0.45),
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                '18°C – 26°C',
                                 style: GoogleFonts.plusJakartaSans(
                                   fontSize: 9,
                                   color: Colors.black54,
-                                  height: 1.35,
                                 ),
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.wb_cloudy_outlined,
-                                  size: 13,
-                                  color: Colors.black.withValues(alpha: 0.45),
+                              const Spacer(),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
                                 ),
-                                const SizedBox(width: 3),
-                                Text(
-                                  '18°C – 26°C',
+                                decoration: BoxDecoration(
+                                  color: _green,
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                child: Text(
+                                  'Lihat Panduan',
                                   style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 9,
-                                    color: Colors.black54,
+                                    fontSize: 8.5,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                const Spacer(),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 6,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: _green,
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  child: Text(
-                                    'Lihat Panduan',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
-      );
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class _TagBadge extends StatelessWidget {
@@ -1051,7 +1061,7 @@ class _QuickCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(icon, style: const TextStyle(fontSize: 21)),
+            Text(icon, style: const TextStyle(fontSize: 23)),
             const Spacer(),
             Text(
               title,
