@@ -555,7 +555,7 @@ class _NearbyList extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: 138,
+      height: 137,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -591,7 +591,7 @@ class _NearbyDestination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240,
+      width: 134,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -608,13 +608,13 @@ class _NearbyDestination extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 74,
+            height: 82,
             child: Stack(
               fit: StackFit.expand,
               children: [
                 _NetworkPhoto(url: image),
                 Positioned(
-                  left: 10,
+                  left: 8,
                   top: 8,
                   child: _TinyBadge(
                     icon: Icons.location_on,
@@ -623,11 +623,22 @@ class _NearbyDestination extends StatelessWidget {
                     color: AppColors.deepForest,
                   ),
                 ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: _RoundIcon(
+                    icon: Icons.bookmark_border_rounded,
+                    color: AppColors.deepForest,
+                    background: Colors.white.withValues(alpha: 0.94),
+                    size: 26,
+                    iconSize: 15,
+                  ),
+                ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 9, 10, 0),
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -637,7 +648,7 @@ class _NearbyDestination extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.plusJakartaSans(
                     color: AppColors.deepForest,
-                    fontSize: 13,
+                    fontSize: 10,
                     fontWeight: FontWeight.w700,
                     height: 1.1,
                   ),
@@ -649,38 +660,43 @@ class _NearbyDestination extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.plusJakartaSans(
                     color: const Color(0xFF6B7280),
-                    fontSize: 10,
+                    fontSize: 8,
                     fontWeight: FontWeight.w500,
                     height: 1,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 7),
                 Row(
                   children: [
                     const Icon(Icons.star_rounded,
-                        color: Color(0xFFFFC247), size: 13),
-                    const SizedBox(width: 3),
-                    Text(
-                      '$rating  ($reviews)',
-                      style: GoogleFonts.plusJakartaSans(
-                        color: const Color(0xFF4B5563),
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
+                        color: Color(0xFFFFC247), size: 10),
+                    const SizedBox(width: 2),
+                    Expanded(
+                      child: Text(
+                        '$rating ($reviews)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.plusJakartaSans(
+                          color: AppColors.deepForest,
+                          fontSize: 8,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    const Spacer(),
                     Icon(
                       Icons.terrain_rounded,
-                      color: AppColors.deepForest.withValues(alpha: 0.58),
-                      size: 13,
+                      color: AppColors.deepForest.withValues(alpha: 0.72),
+                      size: 10,
                     ),
-                    const SizedBox(width: 3),
+                    const SizedBox(width: 2),
                     Text(
-                      elevation,
+                      elevation.replaceAll(' mdpl', ''),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.plusJakartaSans(
-                        color: const Color(0xFF4B5563),
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
+                        color: AppColors.deepForest,
+                        fontSize: 8,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],
