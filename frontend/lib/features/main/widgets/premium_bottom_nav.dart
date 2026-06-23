@@ -70,7 +70,7 @@ class PremiumBottomNav extends StatelessWidget {
                       icon: Icons.notifications_none_rounded,
                       selectedIcon: Icons.notifications_rounded,
                       selected: currentIndex == 3,
-                      showDot: currentIndex != 3,
+                      showDot: true,
                       onTap: () => _select(3),
                     ),
                   ),
@@ -89,7 +89,7 @@ class PremiumBottomNav extends StatelessWidget {
           ),
           Positioned(
             top: 0,
-            child: _GuideButton(
+            child: _CreateButton(
               selected: currentIndex == 2,
               onTap: () => _select(2),
             ),
@@ -142,26 +142,15 @@ class _NavItem extends StatelessWidget {
                   Icon(selected ? selectedIcon : icon, size: 22, color: color),
                   if (showDot)
                     Positioned(
-                      right: -8,
-                      top: -5,
+                      right: -7,
+                      top: -6,
                       child: Container(
-                        width: 17,
-                        height: 17,
+                        width: 14,
+                        height: 14,
                         decoration: BoxDecoration(
                           color: AppColors.notificationDot,
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '3',
-                            style: GoogleFonts.plusJakartaSans(
-                              color: Colors.white,
-                              fontSize: 8,
-                              height: 1,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                         ),
                       ),
                     ),
@@ -186,8 +175,8 @@ class _NavItem extends StatelessWidget {
   }
 }
 
-class _GuideButton extends StatelessWidget {
-  const _GuideButton({required this.selected, required this.onTap});
+class _CreateButton extends StatelessWidget {
+  const _CreateButton({required this.selected, required this.onTap});
 
   final bool selected;
   final VoidCallback onTap;
@@ -195,40 +184,53 @@ class _GuideButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Semantics(
         button: true,
-        label: 'Guide',
+        label: 'Create',
         child: GestureDetector(
           onTap: onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              color: AppColors.forestGreen,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 5),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x402D6A4F),
-                  blurRadius: 30,
-                  offset: Offset(0, 10),
-                ),
-              ],
-            ),
+          child: SizedBox(
+            width: 86,
+            height: 106,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.landscape_rounded,
-                  color: Colors.white,
-                  size: 28,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Guide',
-                  style: GoogleFonts.plusJakartaSans(
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        AppColors.deepForest,
+                        AppColors.forestGreen,
+                      ],
+                    ),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 6),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x402D6A4F),
+                        blurRadius: 30,
+                        offset: Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.add_rounded,
                     color: Colors.white,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w700,
+                    size: 42,
+                  ),
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  'Create',
+                  style: GoogleFonts.plusJakartaSans(
+                    color: selected
+                        ? AppColors.deepForest
+                        : const Color(0xFF6B7280),
+                    fontSize: 12,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
               ],
