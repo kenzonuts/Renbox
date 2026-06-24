@@ -16,7 +16,7 @@ class CreateScreen extends StatelessWidget {
         bottom: false,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(20, 24, 20, 132),
+          padding: EdgeInsets.fromLTRB(18, 24, 18, 132),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

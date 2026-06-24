@@ -11,7 +11,7 @@ class AppTopHeader extends StatelessWidget {
     super.key,
     this.variant = AppTopHeaderVariant.surface,
     this.height = 72,
-    this.horizontalPadding = 20,
+    this.horizontalPadding = 18,
     this.logoSize = 26,
     this.showSearch = true,
     this.showNotification = true,
