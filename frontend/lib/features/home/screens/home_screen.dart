@@ -76,8 +76,9 @@ class HomeScreen extends ConsumerWidget {
                     const SizedBox(height: 10),
                     _Recommendations(locations: state.featuredList),
                     const SizedBox(height: 24),
-                    const _SectionTitle(
+                    _SectionTitle(
                       title: 'CERITA TERBARU DARI KOMUNITAS',
+                      onTap: () => context.push('/community-stories'),
                     ),
                     const SizedBox(height: 10),
                     _CommunityPosts(posts: state.posts),
@@ -924,10 +925,15 @@ class _CommunityPosts extends StatelessWidget {
 }
 
 class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title, this.action = 'Lihat Semua'});
+  const _SectionTitle({
+    required this.title,
+    this.action = 'Lihat Semua',
+    this.onTap,
+  });
 
   final String title;
   final String action;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -942,9 +948,16 @@ class _SectionTitle extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            '$action  ›',
-            style: GoogleFonts.plusJakartaSans(fontSize: 10, color: _ink),
+          InkWell(
+            borderRadius: BorderRadius.circular(999),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+              child: Text(
+                '$action  ›',
+                style: GoogleFonts.plusJakartaSans(fontSize: 10, color: _ink),
+              ),
+            ),
           ),
         ],
       );
