@@ -9,10 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_top_header.dart';
 
-const _heroHeight = 300.0;
-const _passportHeight = 205.0;
-const _overlap = 30.0;
-const _horizontalPadding = 24.0;
+const _heroHeight = 246.0;
+const _passportHeight = 180.0;
+const _overlap = 24.0;
+const _horizontalPadding = 20.0;
 const _ink = Color(0xFF0B2C23);
 const _muted = Color(0xFF5F6368);
 const _line = Color(0xFFE6E0D8);
@@ -30,19 +30,19 @@ class ProfileScreen extends ConsumerWidget {
           physics: const BouncingScrollPhysics(),
           slivers: [
             const SliverToBoxAdapter(child: _ProfileTop()),
-            const SliverToBoxAdapter(child: SizedBox(height: 18)),
+            const SliverToBoxAdapter(child: SizedBox(height: 14)),
             const SliverToBoxAdapter(child: _AchievementSection()),
-            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            const SliverToBoxAdapter(child: SizedBox(height: 14)),
             const SliverToBoxAdapter(child: _ExplorerStatsCard()),
-            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            const SliverToBoxAdapter(child: SizedBox(height: 14)),
             const SliverToBoxAdapter(child: _RecentAdventures()),
-            const SliverToBoxAdapter(child: SizedBox(height: 18)),
+            const SliverToBoxAdapter(child: SizedBox(height: 12)),
             SliverPersistentHeader(
               pinned: true,
               delegate: _StickyTabsDelegate(),
             ),
             const SliverPadding(
-              padding: EdgeInsets.fromLTRB(24, 12, 24, 148),
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 136),
               sliver: _PostGrid(),
             ),
           ],
@@ -64,8 +64,8 @@ class _ProfileTop extends StatelessWidget {
         children: [
           const _ProfileHero(),
           Positioned(
-            left: 16,
-            right: 16,
+            left: 18,
+            right: 18,
             top: _heroHeight - _overlap,
             height: _passportHeight,
             child: _AdventurePassportCard(),
@@ -107,17 +107,17 @@ class _ProfileHero extends StatelessWidget {
           ),
           const _ProfileHeader(),
           Positioned(
-            left: 24,
-            right: 24,
-            bottom: 22,
+            left: 20,
+            right: 20,
+            bottom: 18,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const _HeroAvatar(),
-                const SizedBox(width: 18),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.only(bottom: 7),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -128,25 +128,25 @@ class _ProfileHero extends StatelessWidget {
                               'Kenzo',
                               style: GoogleFonts.plusJakartaSans(
                                 color: Colors.white,
-                                fontSize: 30,
+                                fontSize: 24,
                                 height: 1,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 6),
                             const _VerifiedBadge(),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 5),
                         Text(
                           '@kenzonuts',
                           style: GoogleFonts.plusJakartaSans(
                             color: Colors.white.withValues(alpha: 0.92),
-                            fontSize: 17,
+                            fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: 9),
                         const _ExplorerPill(),
                       ],
                     ),
@@ -156,8 +156,8 @@ class _ProfileHero extends StatelessWidget {
             ),
           ),
           const Positioned(
-            left: 24,
-            bottom: -4,
+            left: 20,
+            bottom: -2,
             child: _AchievementPill(),
           ),
         ],
@@ -197,16 +197,16 @@ class _HeroAvatar extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          width: 120,
-          height: 120,
+          width: 92,
+          height: 92,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white, width: 5),
+            border: Border.all(color: Colors.white, width: 4),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x33000000),
-                blurRadius: 18,
-                offset: Offset(0, 8),
+                color: Color(0x26000000),
+                blurRadius: 14,
+                offset: Offset(0, 6),
               ),
             ],
             image: const DecorationImage(
@@ -217,20 +217,20 @@ class _HeroAvatar extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 4,
-          bottom: 3,
+          right: 2,
+          bottom: 2,
           child: Container(
-            width: 42,
-            height: 42,
+            width: 30,
+            height: 30,
             decoration: BoxDecoration(
               color: AppColors.forestGreen,
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 4),
+              border: Border.all(color: Colors.white, width: 3),
             ),
             child: const Icon(
               Icons.explore_rounded,
               color: Colors.white,
-              size: 21,
+              size: 16,
             ),
           ),
         ),
@@ -245,14 +245,14 @@ class _VerifiedBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 22,
-      height: 22,
+      width: 18,
+      height: 18,
       decoration: BoxDecoration(
         color: const Color(0xFF7ED957),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 2),
       ),
-      child: const Icon(Icons.check_rounded, color: Colors.white, size: 14),
+      child: const Icon(Icons.check_rounded, color: Colors.white, size: 11),
     );
   }
 }
@@ -263,15 +263,15 @@ class _ExplorerPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
+      padding: const EdgeInsets.fromLTRB(9, 6, 12, 6),
       decoration: BoxDecoration(
         color: AppColors.forestGreen.withValues(alpha: 0.94),
         borderRadius: BorderRadius.circular(999),
         boxShadow: const [
           BoxShadow(
             color: Color(0x332D6A4F),
-            blurRadius: 14,
-            offset: Offset(0, 6),
+            blurRadius: 10,
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -279,21 +279,21 @@ class _ExplorerPill extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 22,
-            height: 22,
+            width: 18,
+            height: 18,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.white, width: 1.5),
             ),
             child: const Icon(Icons.shield_outlined,
-                color: Colors.white, size: 15),
+                color: Colors.white, size: 12),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 7),
           Text(
             'Level 7 Explorer',
             style: GoogleFonts.plusJakartaSans(
               color: Colors.white,
-              fontSize: 15,
+              fontSize: 11.5,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -309,8 +309,8 @@ class _AchievementPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 37,
-      padding: const EdgeInsets.fromLTRB(16, 0, 20, 0),
+      height: 30,
+      padding: const EdgeInsets.fromLTRB(12, 0, 15, 0),
       decoration: BoxDecoration(
         color: const Color(0xFFD8B99C),
         borderRadius: BorderRadius.circular(999),
@@ -318,13 +318,13 @@ class _AchievementPill extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.terrain_rounded, color: Colors.white, size: 22),
-          const SizedBox(width: 9),
+          const Icon(Icons.terrain_rounded, color: Colors.white, size: 17),
+          const SizedBox(width: 7),
           Text(
             'Mountain Hunter',
             style: GoogleFonts.plusJakartaSans(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: 11,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -340,30 +340,30 @@ class _AdventurePassportCard extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x14000000),
-            blurRadius: 32,
-            offset: Offset(0, 12),
+            color: Color(0x10000000),
+            blurRadius: 20,
+            offset: Offset(0, 8),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(24),
         child: Stack(
           children: [
             Positioned(
-              right: -7,
-              bottom: -2,
-              width: 154,
+              right: -24,
+              bottom: -14,
+              width: 126,
               child: Opacity(
-                opacity: 0.92,
+                opacity: 0.50,
                 child: Image.asset('img/home/cardpetualangan.png'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 12),
+              padding: const EdgeInsets.fromLTRB(18, 13, 18, 11),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -372,20 +372,20 @@ class _AdventurePassportCard extends StatelessWidget {
                       const Icon(
                         Icons.explore_outlined,
                         color: AppColors.forestGreen,
-                        size: 18,
+                        size: 16,
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 8),
                       Text(
                         'Adventure Passport',
                         style: GoogleFonts.plusJakartaSans(
                           color: AppColors.deepForest,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 9),
                   const Row(
                     children: [
                       _PassportStat(
@@ -421,9 +421,9 @@ class _AdventurePassportCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Container(height: 1, width: 286, color: _line),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 7),
+                  Container(height: 1, width: double.infinity, color: _line),
+                  const SizedBox(height: 7),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -431,42 +431,46 @@ class _AdventurePassportCard extends StatelessWidget {
                         '68%',
                         style: GoogleFonts.plusJakartaSans(
                           color: AppColors.forestGreen,
-                          fontSize: 26,
+                          fontSize: 21,
                           height: 0.95,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-                      const SizedBox(width: 18),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Menuju Explorer Level 8',
-                            style: GoogleFonts.plusJakartaSans(
-                              color: _ink,
-                              fontSize: 13.5,
-                              fontWeight: FontWeight.w800,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Menuju Explorer Level 8',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.plusJakartaSans(
+                                color: _ink,
+                                fontSize: 11.2,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 3),
-                          Text(
-                            '780 / 1.150 XP',
-                            style: GoogleFonts.plusJakartaSans(
-                              color: _muted,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
+                            const SizedBox(height: 2),
+                            Text(
+                              '780 / 1.150 XP',
+                              style: GoogleFonts.plusJakartaSans(
+                                color: _muted,
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 7),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(999),
                     child: SizedBox(
-                      width: 236,
-                      height: 8,
+                      width: 200,
+                      height: 6,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -512,28 +516,28 @@ class _PassportStat extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 32,
-            height: 32,
+            width: 27,
+            height: 27,
             decoration: BoxDecoration(color: bg, shape: BoxShape.circle),
-            child: Icon(icon, color: iconColor, size: 21),
+            child: Icon(icon, color: iconColor, size: 17),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 3),
           Text(
             number,
             style: GoogleFonts.plusJakartaSans(
               color: _ink,
-              fontSize: 18,
+              fontSize: 15,
               height: 1,
               fontWeight: FontWeight.w800,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 3),
           Text(
             label,
             maxLines: 1,
             style: GoogleFonts.plusJakartaSans(
               color: _muted,
-              fontSize: 10.5,
+              fontSize: 9,
               height: 1,
               fontWeight: FontWeight.w600,
             ),
@@ -549,7 +553,7 @@ class _VerticalRule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: 1, height: 39, color: _line);
+    return Container(width: 1, height: 34, color: _line);
   }
 }
 
@@ -571,16 +575,16 @@ class _AchievementSection extends StatelessWidget {
     return Column(
       children: [
         const _SectionHeader(title: 'Achievement'),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         SizedBox(
-          height: 154,
+          height: 118,
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) =>
                 _AchievementBadge(data: badges[index]),
-            separatorBuilder: (_, __) => const SizedBox(width: 20),
+            separatorBuilder: (_, __) => const SizedBox(width: 14),
             itemCount: badges.length,
           ),
         ),
@@ -604,7 +608,7 @@ class _SectionHeader extends StatelessWidget {
             title,
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.deepForest,
-              fontSize: 18,
+              fontSize: 15,
               height: 1,
               fontWeight: FontWeight.w800,
             ),
@@ -614,13 +618,13 @@ class _SectionHeader extends StatelessWidget {
             'Lihat Semua',
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.deepForest,
-              fontSize: 13.5,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 6),
           const Icon(Icons.arrow_forward_rounded,
-              color: AppColors.deepForest, size: 20),
+              color: AppColors.deepForest, size: 16),
         ],
       ),
     );
@@ -642,12 +646,12 @@ class _AchievementBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 88,
+      width: 68,
       child: Column(
         children: [
           SizedBox(
-            width: 88,
-            height: 88,
+            width: 66,
+            height: 66,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -666,15 +670,15 @@ class _AchievementBadge extends StatelessWidget {
                       boxShadow: const [
                         BoxShadow(
                           color: Color(0x22000000),
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
                         ),
                       ],
                     ),
                     child: CustomPaint(
                       painter: _BadgeTexturePainter(color: data.color),
                       child: Center(
-                        child: Icon(data.icon, color: Colors.white, size: 37),
+                        child: Icon(data.icon, color: Colors.white, size: 27),
                       ),
                     ),
                   ),
@@ -682,24 +686,24 @@ class _AchievementBadge extends StatelessWidget {
                 ClipPath(
                   clipper: _HexagonClipper(),
                   child: Container(
-                    margin: const EdgeInsets.all(7),
+                    margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      border:
-                          Border.all(color: const Color(0xFFE3C9A7), width: 2),
+                      border: Border.all(
+                          color: const Color(0xFFE3C9A7), width: 1.5),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 11),
+          const SizedBox(height: 8),
           Text(
             data.label,
             textAlign: TextAlign.center,
             maxLines: 2,
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.deepForest,
-              fontSize: 13,
+              fontSize: 10.5,
               height: 1.15,
               fontWeight: FontWeight.w700,
             ),
@@ -716,17 +720,17 @@ class _ExplorerStatsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Container(
-        height: 88,
+        height: 72,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
-              color: Color(0x10000000),
-              blurRadius: 20,
-              offset: Offset(0, 8),
+              color: Color(0x0D000000),
+              blurRadius: 14,
+              offset: Offset(0, 5),
             ),
           ],
         ),
@@ -773,35 +777,31 @@ class _ProfileStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: accent, size: 27),
-          const SizedBox(width: 8),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                number,
-                style: GoogleFonts.plusJakartaSans(
-                  color: _ink,
-                  fontSize: 20,
-                  height: 1,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                label,
-                style: GoogleFonts.plusJakartaSans(
-                  color: _muted,
-                  fontSize: 11.5,
-                  height: 1,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+          Icon(icon, color: accent, size: 21),
+          const SizedBox(height: 4),
+          Text(
+            number,
+            style: GoogleFonts.plusJakartaSans(
+              color: _ink,
+              fontSize: 16,
+              height: 1,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.plusJakartaSans(
+              color: _muted,
+              fontSize: 9.2,
+              height: 1,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -848,15 +848,15 @@ class _RecentAdventures extends StatelessWidget {
     return Column(
       children: [
         const _SectionHeader(title: 'Petualangan Terbaru'),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         SizedBox(
-          height: 120,
+          height: 112,
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => _AdventureCard(data: cards[index]),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
             itemCount: cards.length,
           ),
         ),
@@ -889,15 +889,15 @@ class _AdventureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180,
+      width: 154,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(18),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x12000000),
-            blurRadius: 16,
-            offset: Offset(0, 6),
+            color: Color(0x10000000),
+            blurRadius: 12,
+            offset: Offset(0, 5),
           ),
         ],
       ),
@@ -906,35 +906,35 @@ class _AdventureCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 58,
+            height: 50,
             width: double.infinity,
             child: data.asset
                 ? Image.asset(data.image, fit: BoxFit.cover)
                 : CachedNetworkImage(imageUrl: data.image, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 7, 10, 0),
+            padding: const EdgeInsets.fromLTRB(9, 6, 9, 0),
             child: Text(
               data.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.plusJakartaSans(
                 color: _ink,
-                fontSize: 13,
+                fontSize: 11.5,
                 height: 1,
                 fontWeight: FontWeight.w800,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 6, 10, 0),
+            padding: const EdgeInsets.fromLTRB(9, 5, 9, 0),
             child: Text(
               data.place,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.plusJakartaSans(
                 color: _muted,
-                fontSize: 11,
+                fontSize: 9.5,
                 height: 1,
                 fontWeight: FontWeight.w600,
               ),
@@ -942,7 +942,7 @@ class _AdventureCard extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(9, 0, 7, 7),
             child: Row(
               children: [
                 Expanded(
@@ -951,15 +951,15 @@ class _AdventureCard extends StatelessWidget {
                     maxLines: 1,
                     style: GoogleFonts.plusJakartaSans(
                       color: _muted,
-                      fontSize: 10.5,
+                      fontSize: 8.8,
                       height: 1,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 Container(
-                  height: 23,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  height: 19,
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8F5E9),
                     borderRadius: BorderRadius.circular(999),
@@ -968,13 +968,13 @@ class _AdventureCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(Icons.check_rounded,
-                          color: AppColors.forestGreen, size: 13),
-                      const SizedBox(width: 3),
+                          color: AppColors.forestGreen, size: 11),
+                      const SizedBox(width: 2),
                       Text(
                         'Check-in',
                         style: GoogleFonts.plusJakartaSans(
                           color: AppColors.forestGreen,
-                          fontSize: 10.5,
+                          fontSize: 8.5,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -998,10 +998,10 @@ class _StickyTabsDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 58;
+  double get maxExtent => 50;
 
   @override
-  double get minExtent => 58;
+  double get minExtent => 50;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
@@ -1013,18 +1013,26 @@ class _ProfileTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    const tabs = [
+      _TabItem(icon: Icons.article_outlined, label: 'Postingan', active: true),
+      _TabItem(icon: Icons.image_outlined, label: 'Album'),
+      _TabItem(icon: Icons.location_on_outlined, label: 'Check-in'),
+      _TabItem(icon: Icons.bookmark_border_rounded, label: 'Wishlist'),
+      _TabItem(icon: Icons.workspace_premium_outlined, label: 'Badge'),
+    ];
+
+    return ColoredBox(
       color: AppColors.cream,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: const Row(
-        children: [
-          _TabItem(
-              icon: Icons.article_outlined, label: 'Postingan', active: true),
-          _TabItem(icon: Icons.image_outlined, label: 'Album'),
-          _TabItem(icon: Icons.location_on_outlined, label: 'Check-in'),
-          _TabItem(icon: Icons.bookmark_border_rounded, label: 'Wishlist'),
-          _TabItem(icon: Icons.workspace_premium_outlined, label: 'Badge'),
-        ],
+      child: SizedBox(
+        height: 50,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+          itemBuilder: (context, index) => tabs[index],
+          separatorBuilder: (_, __) => const SizedBox(width: 9),
+          itemCount: tabs.length,
+        ),
       ),
     );
   }
@@ -1044,42 +1052,37 @@ class _TabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = active ? AppColors.forestGreen : const Color(0xFF4D5156);
-    return Expanded(
-      child: SizedBox(
-        height: 58,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(icon, color: color, size: 18),
-                const SizedBox(width: 5),
-                Flexible(
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.plusJakartaSans(
-                      color: color,
-                      fontSize: 13,
-                      fontWeight: active ? FontWeight.w800 : FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
+    return Container(
+      height: 34,
+      padding: const EdgeInsets.symmetric(horizontal: 13),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: active ? Colors.white : Colors.white.withValues(alpha: 0.62),
+        borderRadius: BorderRadius.circular(999),
+        border: active ? Border.all(color: AppColors.forestGreen) : null,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.deepForest.withValues(alpha: active ? 0.08 : 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 15),
+          const SizedBox(width: 5),
+          Text(
+            label,
+            maxLines: 1,
+            style: GoogleFonts.plusJakartaSans(
+              color: color,
+              fontSize: 10.5,
+              fontWeight: active ? FontWeight.w800 : FontWeight.w600,
             ),
-            const SizedBox(height: 12),
-            Container(
-              height: 3,
-              width: active ? 70 : 0,
-              decoration: BoxDecoration(
-                color: AppColors.forestGreen,
-                borderRadius: BorderRadius.circular(999),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -1133,8 +1136,8 @@ class _PostGrid extends StatelessWidget {
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
+        mainAxisSpacing: 6,
+        crossAxisSpacing: 6,
         childAspectRatio: 1,
       ),
     );
@@ -1156,7 +1159,7 @@ class _GridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(11),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -1168,14 +1171,14 @@ class _GridTile extends StatelessWidget {
                   fit: BoxFit.cover,
                   alignment: data.alignment),
           Positioned(
-            top: 9,
-            right: 9,
+            top: 7,
+            right: 7,
             child: Container(
-              width: 16,
-              height: 16,
+              width: 12,
+              height: 12,
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.92),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(3),
               ),
             ),
           ),
