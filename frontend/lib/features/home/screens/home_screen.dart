@@ -445,95 +445,107 @@ class _PassportCard extends StatelessWidget {
   const _PassportCard();
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: 140,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
+  Widget build(BuildContext context) => Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(22),
+        child: InkWell(
           borderRadius: BorderRadius.circular(22),
-          image: const DecorationImage(
-            image: AssetImage('img/home/cardpetualangan.png'),
-            fit: BoxFit.cover,
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 18,
-              offset: Offset(0, 6),
+          onTap: () => context.push('/adventure-passport'),
+          child: Container(
+            height: 140,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              image: const DecorationImage(
+                image: AssetImage('img/home/cardpetualangan.png'),
+                fit: BoxFit.cover,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x19000000),
+                  blurRadius: 18,
+                  offset: Offset(0, 6),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            const Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Color(0xF2FFFFFF),
-                      Color(0xCFFFFFFF),
-                      Color(0x00FFFFFF),
-                    ],
-                    stops: [0, 0.42, 0.82],
+            child: Stack(
+              children: [
+                const Positioned.fill(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Color(0xF2FFFFFF),
+                          Color(0xCFFFFFFF),
+                          Color(0x00FFFFFF),
+                        ],
+                        stops: [0, 0.42, 0.82],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        children: [
+                          Text(
+                            '♟  PASSPORT EXPLORER',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 8,
+                              color: _green,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            'Lihat Detail  →',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 8,
+                              color: _green,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 3),
                       Text(
-                        '♟  PASSPORT EXPLORER',
+                        'Koleksi Petualanganmu',
+                        style: GoogleFonts.dmSerifDisplay(
+                            fontSize: 18, color: _green),
+                      ),
+                      Text(
+                        'Terus jelajahi, kumpulkan lebih banyak momen!',
                         style: GoogleFonts.plusJakartaSans(
-                          fontSize: 8,
-                          color: _green,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 8.5,
+                          color: Colors.black54,
                         ),
                       ),
                       const Spacer(),
-                      Text(
-                        'Lihat Detail  →',
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 8,
-                          color: _green,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      const Row(
+                        children: [
+                          _PassportStat(
+                              icon: '⛰', count: '12', label: 'Gunung'),
+                          _PassportStat(
+                              icon: '♨', count: '8', label: 'Air Terjun'),
+                          _PassportStat(
+                              icon: '⛺', count: '15', label: 'Camping'),
+                          _PassportStat(
+                              icon: '●', count: '24', label: 'Check-in'),
+                          Spacer(),
+                          _ProgressRing(),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 3),
-                  Text(
-                    'Koleksi Petualanganmu',
-                    style:
-                        GoogleFonts.dmSerifDisplay(fontSize: 18, color: _green),
-                  ),
-                  Text(
-                    'Terus jelajahi, kumpulkan lebih banyak momen!',
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 8.5,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  const Spacer(),
-                  const Row(
-                    children: [
-                      _PassportStat(icon: '⛰', count: '12', label: 'Gunung'),
-                      _PassportStat(icon: '♨', count: '8', label: 'Air Terjun'),
-                      _PassportStat(icon: '⛺', count: '15', label: 'Camping'),
-                      _PassportStat(icon: '●', count: '24', label: 'Check-in'),
-                      Spacer(),
-                      _ProgressRing(),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
 }

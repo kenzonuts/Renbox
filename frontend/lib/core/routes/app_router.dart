@@ -13,6 +13,7 @@ import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/main/screens/main_shell.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
+import '../../features/profile/screens/adventure_passport_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../../features/splash/screens/splash_screen.dart';
 
@@ -77,6 +78,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, state) => LocationDetailScreen(
           slug: state.pathParameters['slug']!,
         ),
+      ),
+      GoRoute(
+        path: '/adventure-passport',
+        builder: (_, __) => const AdventurePassportScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (_, __, navigationShell) =>
