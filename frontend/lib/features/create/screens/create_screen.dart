@@ -27,8 +27,6 @@ class CreateScreen extends StatelessWidget {
               _UploadAdventureCard(),
               SizedBox(height: 24),
               _ActionGrid(),
-              SizedBox(height: 24),
-              _LevelProgressCard(),
             ],
           ),
         ),
@@ -481,34 +479,30 @@ class _ActionCard extends StatelessWidget {
             ),
             Positioned(
               right: 14,
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: disabled
-                        ? Colors.white.withValues(alpha: 0.82)
-                        : arrowColor.withValues(alpha: 0.94),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.07),
-                        blurRadius: 14,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    disabled
-                        ? Icons.lock_outline_rounded
-                        : Icons.chevron_right_rounded,
-                    color: disabled
-                        ? const Color(0xFF4B5563)
-                        : AppColors.deepForest,
-                    size: disabled ? 18 : 23,
-                  ),
+              bottom: 18,
+              child: Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: disabled
+                      ? Colors.white.withValues(alpha: 0.82)
+                      : arrowColor.withValues(alpha: 0.94),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.07),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  disabled
+                      ? Icons.lock_outline_rounded
+                      : Icons.chevron_right_rounded,
+                  color:
+                      disabled ? const Color(0xFF4B5563) : AppColors.deepForest,
+                  size: disabled ? 18 : 23,
                 ),
               ),
             ),
@@ -517,178 +511,6 @@ class _ActionCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _LevelProgressCard extends StatelessWidget {
-  const _LevelProgressCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 104,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          const _ExplorerBadge(),
-          const SizedBox(width: 16),
-          Expanded(
-            child: SizedBox(
-              height: 80,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 1,
-                    child: Text(
-                      'Level 7 Explorer',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: AppColors.deepForest,
-                        fontSize: 18,
-                        height: 1,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 26,
-                    child: Text(
-                      '780 / 1.000 XP',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: const Color(0xFF374151),
-                        fontSize: 13,
-                        height: 1,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 46,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(999)),
-                      child: LinearProgressIndicator(
-                        value: 0.78,
-                        minHeight: 8,
-                        backgroundColor: Color(0xFFE5E7EB),
-                        color: AppColors.forestGreen,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 64,
-                    child: Text(
-                      '2 aktivitas lagi menuju level berikutnya',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: AppColors.forestGreen,
-                        fontSize: 11.5,
-                        height: 1,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.deepForest,
-            size: 32,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ExplorerBadge extends StatelessWidget {
-  const _ExplorerBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 64,
-      height: 64,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: const RadialGradient(
-          colors: [
-            Color(0xFF2C7A3F),
-            AppColors.deepForest,
-          ],
-        ),
-        border: Border.all(color: const Color(0xFF0F2E23), width: 3),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.deepForest.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          for (final item in const [
-            _BadgeStar(0, -23),
-            _BadgeStar(16, -17),
-            _BadgeStar(22, 4),
-            _BadgeStar(13, 21),
-            _BadgeStar(-14, 20),
-            _BadgeStar(-23, 2),
-            _BadgeStar(-15, -17),
-          ])
-            Positioned(
-              left: 30 + item.dx,
-              top: 30 + item.dy,
-              child: const Icon(
-                Icons.star_rounded,
-                color: Color(0xFFE4D358),
-                size: 7,
-              ),
-            ),
-          const Icon(
-            Icons.landscape_rounded,
-            color: Color(0xFFB5D94A),
-            size: 30,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BadgeStar {
-  const _BadgeStar(this.dx, this.dy);
-
-  final double dx;
-  final double dy;
 }
 
 class _CardLandscapePainter extends CustomPainter {

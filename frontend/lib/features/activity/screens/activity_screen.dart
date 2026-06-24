@@ -19,64 +19,20 @@ class ActivityScreen extends StatelessWidget {
       backgroundColor: AppColors.cream,
       body: Stack(
         children: [
-          const Positioned(
-            top: 126,
-            right: -8,
-            child: Opacity(
-              opacity: 0.10,
-              child: SizedBox(
-                width: 214,
-                height: 116,
-                child: CustomPaint(painter: _MountainLinePainter()),
-              ),
-            ),
-          ),
           SafeArea(
             bottom: false,
             child: CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
-                SliverToBoxAdapter(
+                const SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+                    padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const _Header(),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Activity',
-                          style: GoogleFonts.plusJakartaSans(
-                            color: AppColors.deepForest,
-                            fontSize: 40,
-                            height: 1.05,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '12 Aktivitas Baru Hari Ini',
-                              style: GoogleFonts.plusJakartaSans(
-                                color: const Color(0xFF4B5563),
-                                fontSize: 16,
-                                height: 1,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Container(
-                              width: 16,
-                              height: 16,
-                              decoration: const BoxDecoration(
-                                color: AppColors.forestGreen,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ],
-                        ),
+                        _Header(),
+                        SizedBox(height: 12),
+                        _ActivityHeroTitle(),
                       ],
                     ),
                   ),
@@ -102,6 +58,115 @@ class ActivityScreen extends StatelessWidget {
                     itemBuilder: (context, index) => _ActivityCard(
                       activity: _activities[index],
                     ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActivityHeroTitle extends StatelessWidget {
+  const _ActivityHeroTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 152,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: -18,
+            right: -18,
+            top: -8,
+            bottom: -2,
+            child: Image.asset(
+              'img/Activity/bg activity.png',
+              fit: BoxFit.cover,
+              alignment: Alignment.centerRight,
+            ),
+          ),
+          Positioned(
+            left: -18,
+            right: -18,
+            top: -8,
+            bottom: -2,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    AppColors.cream.withValues(alpha: 0.98),
+                    AppColors.cream.withValues(alpha: 0.72),
+                    AppColors.cream.withValues(alpha: 0.12),
+                  ],
+                  stops: const [0, 0.42, 1],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: -18,
+            right: -18,
+            bottom: -2,
+            height: 54,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColors.cream.withValues(alpha: 0),
+                    AppColors.cream,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 20,
+            width: 188,
+            child: Text(
+              'Activity',
+              maxLines: 1,
+              overflow: TextOverflow.visible,
+              style: GoogleFonts.plusJakartaSans(
+                color: AppColors.deepForest,
+                fontSize: 40,
+                height: 1.05,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 0,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 82,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '12 Aktivitas Baru Hari Ini',
+                  style: GoogleFonts.plusJakartaSans(
+                    color: const Color(0xFF4B5563),
+                    fontSize: 16,
+                    height: 1,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                    color: AppColors.forestGreen,
+                    shape: BoxShape.circle,
                   ),
                 ),
               ],
