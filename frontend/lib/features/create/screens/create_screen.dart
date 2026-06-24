@@ -23,7 +23,7 @@ class CreateScreen extends StatelessWidget {
               _CreateHeader(),
               SizedBox(height: 16),
               _HeroTitle(),
-              SizedBox(height: 24),
+              SizedBox(height: 4),
               _UploadAdventureCard(),
               SizedBox(height: 24),
               _ActionGrid(),
@@ -119,16 +119,16 @@ class _UploadAdventureCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.push('/upload-post'),
       child: Container(
-        height: 236,
+        height: 190,
         width: double.infinity,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.12),
-              blurRadius: 32,
-              offset: const Offset(0, 12),
+              blurRadius: 24,
+              offset: const Offset(0, 10),
             ),
           ],
         ),
@@ -136,9 +136,9 @@ class _UploadAdventureCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.asset(
-              'img/home/home.png',
+              'img/create/Upload.png',
               fit: BoxFit.cover,
-              alignment: const Alignment(0.42, 0),
+              alignment: Alignment.centerRight,
             ),
             DecoratedBox(
               decoration: BoxDecoration(
@@ -146,23 +146,23 @@ class _UploadAdventureCard extends StatelessWidget {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
-                    AppColors.deepForest.withValues(alpha: 0.98),
-                    AppColors.deepForest.withValues(alpha: 0.78),
-                    AppColors.deepForest.withValues(alpha: 0.18),
+                    AppColors.deepForest.withValues(alpha: 0.9),
+                    AppColors.deepForest.withValues(alpha: 0.58),
+                    AppColors.deepForest.withValues(alpha: 0.04),
                   ],
-                  stops: const [0, 0.47, 1],
+                  stops: const [0, 0.42, 1],
                 ),
               ),
             ),
             Positioned(
-              left: 24,
-              top: 24,
+              left: 20,
+              top: 16,
               child: Container(
-                width: 64,
-                height: 64,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
                   color: const Color(0xFFA7E08A),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.16),
@@ -174,21 +174,21 @@ class _UploadAdventureCard extends StatelessWidget {
                 child: const Icon(
                   Icons.photo_camera_rounded,
                   color: Colors.white,
-                  size: 34,
+                  size: 23,
                 ),
               ),
             ),
             Positioned(
-              left: 24,
+              left: 20,
               right: 18,
-              bottom: 102,
+              bottom: 88,
               child: Text(
                 'Upload Petualangan',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.plusJakartaSans(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 18,
                   height: 1.05,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 0,
@@ -196,28 +196,28 @@ class _UploadAdventureCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 24,
-              right: 118,
-              bottom: 62,
+              left: 20,
+              right: 128,
+              bottom: 58,
               child: Text(
                 'Bagikan foto, cerita, dan\nmomen terbaikmu.',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.plusJakartaSans(
                   color: Colors.white,
-                  fontSize: 16,
-                  height: 1.28,
+                  fontSize: 11,
+                  height: 1.24,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
             Positioned(
-              left: 24,
+              left: 20,
               bottom: 22,
               child: Container(
-                height: 48,
-                width: 176,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                height: 32,
+                width: 120,
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(999),
@@ -239,17 +239,17 @@ class _UploadAdventureCard extends StatelessWidget {
                           'Mulai Upload',
                           style: GoogleFonts.plusJakartaSans(
                             color: AppColors.deepForest,
-                            fontSize: 15,
+                            fontSize: 11,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 4),
                     const Icon(
                       Icons.chevron_right_rounded,
                       color: AppColors.deepForest,
-                      size: 28,
+                      size: 18,
                     ),
                   ],
                 ),
@@ -271,33 +271,35 @@ class _ActionGrid extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
-      childAspectRatio: 0.98,
+      childAspectRatio: 1,
       padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: const [
         _ActionCard(
           title: 'Check-In Lokasi',
-          description: 'Tandai tempat yang\npernah kamu kunjungi.',
+          description: 'Tandai tempat yang pernah kamu kunjungi.',
           icon: Icons.location_on_rounded,
           iconColor: AppColors.deepForest,
           backgroundColor: Color(0xFFEFF8ED),
           artColor: Color(0xFF74AF55),
           arrowColor: Color(0xFFDDEFD8),
+          backgroundAsset: 'img/create/lokasi.png',
         ),
         _ActionCard(
           title: 'Panduan Pendakian',
-          description: 'Cari jalur, cuaca, dan\ninformasi pendakian.',
+          description: 'Cari jalur, cuaca, dan informasi pendakian.',
           icon: Icons.hiking_rounded,
           iconColor: Color(0xFF7A4F2E),
           backgroundColor: Color(0xFFFFF4E8),
           artColor: Color(0xFFD4B28A),
           arrowColor: Color(0xFFF4E1C9),
+          backgroundAsset: 'img/create/panduan.png',
         ),
         _ActionCard(
           title: 'Adventure Log',
           badge: 'Coming Soon',
-          description: 'Catat setiap langkah\npetualanganmu.',
+          description: 'Catat setiap langkah petualanganmu.',
           icon: Icons.edit_note_rounded,
           iconColor: Color(0xFF5F6368),
           backgroundColor: Color(0xFFF2F3F5),
@@ -307,7 +309,7 @@ class _ActionGrid extends StatelessWidget {
         _ActionCard(
           title: 'Travel Album',
           badge: 'Coming Soon',
-          description: 'Kumpulkan momen\npetualangan dalam\nsatu album.',
+          description: 'Kumpulkan momen petualangan dalam satu album.',
           icon: Icons.collections_rounded,
           iconColor: Color(0xFF2375A7),
           backgroundColor: Color(0xFFEFF7FB),
@@ -328,6 +330,7 @@ class _ActionCard extends StatelessWidget {
     required this.backgroundColor,
     required this.artColor,
     this.arrowColor = const Color(0xFFF1F3F4),
+    this.backgroundAsset,
     this.badge,
     this.disabled = false,
   });
@@ -339,6 +342,7 @@ class _ActionCard extends StatelessWidget {
   final Color backgroundColor;
   final Color artColor;
   final Color arrowColor;
+  final String? backgroundAsset;
   final String? badge;
   final bool disabled;
 
@@ -361,23 +365,48 @@ class _ActionCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Positioned.fill(
-              child: CustomPaint(
-                painter: _CardLandscapePainter(
-                  color: artColor,
-                  disabled: disabled,
+            if (backgroundAsset != null) ...[
+              Positioned.fill(
+                child: Image.asset(
+                  backgroundAsset!,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.centerRight,
                 ),
               ),
-            ),
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Colors.white.withValues(alpha: 0.76),
+                        Colors.white.withValues(alpha: 0.5),
+                        Colors.white.withValues(alpha: 0.08),
+                      ],
+                      stops: const [0, 0.48, 1],
+                    ),
+                  ),
+                ),
+              ),
+            ] else
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: _CardLandscapePainter(
+                    color: artColor,
+                    disabled: disabled,
+                  ),
+                ),
+              ),
             Positioned(
               left: 16,
               top: 16,
               child: Container(
-                width: 56,
-                height: 56,
+                width: 46,
+                height: 46,
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.48),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(13),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.08),
@@ -386,11 +415,11 @@ class _ActionCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Icon(icon, color: iconColor, size: 31),
+                child: Icon(icon, color: iconColor, size: 24),
               ),
             ),
             Positioned(
-              left: 86,
+              left: 64,
               right: 12,
               top: 20,
               child: Text(
@@ -400,7 +429,7 @@ class _ActionCard extends StatelessWidget {
                 style: GoogleFonts.plusJakartaSans(
                   color:
                       disabled ? const Color(0xFF111827) : AppColors.deepForest,
-                  fontSize: 14.3,
+                  fontSize: 12.8,
                   height: 1.08,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 0,
@@ -409,7 +438,7 @@ class _ActionCard extends StatelessWidget {
             ),
             if (badge != null)
               Positioned(
-                left: 86,
+                left: 64,
                 right: 12,
                 top: 54,
                 child: Align(
@@ -435,47 +464,51 @@ class _ActionCard extends StatelessWidget {
                 ),
               ),
             Positioned(
-              left: 86,
-              right: 14,
-              top: badge == null ? 76 : 84,
+              left: 64,
+              right: 67,
+              top: badge == null ? 66 : 82,
               child: Text(
                 description,
-                maxLines: disabled ? 3 : 2,
+                maxLines: 4,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.plusJakartaSans(
                   color: const Color(0xFF374151),
-                  fontSize: 11.7,
-                  height: 1.28,
+                  fontSize: 10.2,
+                  height: 1.22,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             Positioned(
-              right: 16,
-              bottom: 14,
-              child: Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: disabled
-                      ? Colors.white.withValues(alpha: 0.72)
-                      : arrowColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 14,
-                      offset: const Offset(0, 6),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  disabled
-                      ? Icons.lock_outline_rounded
-                      : Icons.chevron_right_rounded,
-                  color:
-                      disabled ? const Color(0xFF4B5563) : AppColors.deepForest,
-                  size: disabled ? 22 : 28,
+              right: 14,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: disabled
+                        ? Colors.white.withValues(alpha: 0.82)
+                        : arrowColor.withValues(alpha: 0.94),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.07),
+                        blurRadius: 14,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    disabled
+                        ? Icons.lock_outline_rounded
+                        : Icons.chevron_right_rounded,
+                    color: disabled
+                        ? const Color(0xFF4B5563)
+                        : AppColors.deepForest,
+                    size: disabled ? 18 : 23,
+                  ),
                 ),
               ),
             ),
@@ -656,105 +689,6 @@ class _BadgeStar {
 
   final double dx;
   final double dy;
-}
-
-class _MountainForestPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final mountainPaint = Paint()..color = const Color(0xFFDCE5DA);
-    final ridgePaint = Paint()
-      ..color = const Color(0xFFB9C9B4)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.1
-      ..strokeCap = StrokeCap.round;
-    final treePaint = Paint()..color = AppColors.deepForest;
-    final birdPaint = Paint()
-      ..color = const Color(0xFF879D7A)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round;
-
-    final mountain = Path()
-      ..moveTo(size.width * 0.05, size.height * 0.74)
-      ..lineTo(size.width * 0.34, size.height * 0.34)
-      ..lineTo(size.width * 0.46, size.height * 0.52)
-      ..lineTo(size.width * 0.63, size.height * 0.12)
-      ..lineTo(size.width * 0.82, size.height * 0.48)
-      ..lineTo(size.width * 0.92, size.height * 0.27)
-      ..lineTo(size.width * 1.08, size.height * 0.76)
-      ..close();
-    canvas.drawPath(mountain, mountainPaint);
-
-    for (final points in [
-      [
-        Offset(size.width * 0.63, size.height * 0.12),
-        Offset(size.width * 0.55, size.height * 0.43),
-        Offset(size.width * 0.66, size.height * 0.35)
-      ],
-      [
-        Offset(size.width * 0.34, size.height * 0.34),
-        Offset(size.width * 0.28, size.height * 0.58),
-        Offset(size.width * 0.38, size.height * 0.51)
-      ],
-      [
-        Offset(size.width * 0.92, size.height * 0.27),
-        Offset(size.width * 0.84, size.height * 0.60),
-        Offset(size.width * 0.96, size.height * 0.50)
-      ],
-    ]) {
-      final path = Path()
-        ..moveTo(points[0].dx, points[0].dy)
-        ..lineTo(points[1].dx, points[1].dy)
-        ..lineTo(points[2].dx, points[2].dy);
-      canvas.drawPath(path, ridgePaint);
-    }
-
-    final forestY = size.height * 0.78;
-    for (var i = 0; i < 16; i++) {
-      final x = size.width * (0.46 + i * 0.043);
-      final h = 30.0 + (i % 5) * 9.0;
-      _drawPine(canvas, Offset(x, forestY + (i.isEven ? 7 : 0)), h, treePaint);
-    }
-    for (var i = 0; i < 28; i++) {
-      _drawPine(
-        canvas,
-        Offset(size.width * (0.03 + i * 0.04), size.height * 0.92),
-        12 + (i % 4) * 3,
-        Paint()..color = AppColors.deepForest.withValues(alpha: 0.32),
-      );
-    }
-
-    _drawBird(canvas, const Offset(42, 18), birdPaint);
-    _drawBird(canvas, const Offset(94, 38), birdPaint);
-    _drawBird(canvas, const Offset(22, 58), birdPaint);
-  }
-
-  void _drawPine(Canvas canvas, Offset base, double height, Paint paint) {
-    final path = Path()
-      ..moveTo(base.dx, base.dy - height)
-      ..lineTo(base.dx - height * 0.24, base.dy - height * 0.45)
-      ..lineTo(base.dx - height * 0.11, base.dy - height * 0.45)
-      ..lineTo(base.dx - height * 0.32, base.dy)
-      ..lineTo(base.dx + height * 0.32, base.dy)
-      ..lineTo(base.dx + height * 0.11, base.dy - height * 0.45)
-      ..lineTo(base.dx + height * 0.24, base.dy - height * 0.45)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  void _drawBird(Canvas canvas, Offset origin, Paint paint) {
-    final path = Path()
-      ..moveTo(origin.dx, origin.dy)
-      ..quadraticBezierTo(
-          origin.dx + 8, origin.dy - 8, origin.dx + 16, origin.dy)
-      ..moveTo(origin.dx + 16, origin.dy)
-      ..quadraticBezierTo(
-          origin.dx + 24, origin.dy - 8, origin.dx + 32, origin.dy);
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class _CardLandscapePainter extends CustomPainter {
