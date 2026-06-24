@@ -265,55 +265,59 @@ class _ActionGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
-      childAspectRatio: 1,
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        _ActionCard(
-          title: 'Check-In Lokasi',
-          description: 'Tandai tempat yang pernah kamu kunjungi.',
-          icon: Icons.location_on_rounded,
-          iconColor: AppColors.deepForest,
-          backgroundColor: Color(0xFFEFF8ED),
-          artColor: Color(0xFF74AF55),
-          arrowColor: Color(0xFFDDEFD8),
-          backgroundAsset: 'img/create/lokasi.png',
-        ),
-        _ActionCard(
-          title: 'Panduan Pendakian',
-          description: 'Cari jalur, cuaca, dan informasi pendakian.',
-          icon: Icons.hiking_rounded,
-          iconColor: Color(0xFF7A4F2E),
-          backgroundColor: Color(0xFFFFF4E8),
-          artColor: Color(0xFFD4B28A),
-          arrowColor: Color(0xFFF4E1C9),
-          backgroundAsset: 'img/create/panduan.png',
-        ),
-        _ActionCard(
-          title: 'Adventure Log',
-          badge: 'Coming Soon',
-          description: 'Catat setiap langkah petualanganmu.',
-          icon: Icons.edit_note_rounded,
-          iconColor: Color(0xFF5F6368),
-          backgroundColor: Color(0xFFF2F3F5),
-          artColor: Color(0xFFD9DDE1),
-          disabled: true,
-        ),
-        _ActionCard(
-          title: 'Travel Album',
-          badge: 'Coming Soon',
-          description: 'Kumpulkan momen petualangan dalam satu album.',
-          icon: Icons.collections_rounded,
-          iconColor: Color(0xFF2375A7),
-          backgroundColor: Color(0xFFEFF7FB),
-          artColor: Color(0xFFBBD9E8),
-          disabled: true,
-        ),
+    const actions = [
+      _ActionCard(
+        title: 'Check-In Lokasi',
+        description: 'Tandai tempat yang pernah kamu kunjungi.',
+        icon: Icons.location_on_rounded,
+        iconColor: AppColors.deepForest,
+        backgroundColor: Color(0xFFEFF8ED),
+        artColor: Color(0xFF74AF55),
+        arrowColor: Color(0xFFDDEFD8),
+        backgroundAsset: 'img/create/lokasi.png',
+      ),
+      _ActionCard(
+        title: 'Panduan Pendakian',
+        description: 'Cari jalur, cuaca, dan informasi pendakian.',
+        icon: Icons.hiking_rounded,
+        iconColor: Color(0xFF7A4F2E),
+        backgroundColor: Color(0xFFFFF4E8),
+        artColor: Color(0xFFD4B28A),
+        arrowColor: Color(0xFFF4E1C9),
+        backgroundAsset: 'img/create/panduan.png',
+      ),
+      _ActionCard(
+        title: 'Adventure Log',
+        badge: 'Coming Soon',
+        description: 'Catat setiap langkah petualanganmu.',
+        icon: Icons.edit_note_rounded,
+        iconColor: Color(0xFF5F6368),
+        backgroundColor: Color(0xFFF2F3F5),
+        artColor: Color(0xFFD9DDE1),
+        disabled: true,
+      ),
+      _ActionCard(
+        title: 'Travel Album',
+        badge: 'Coming Soon',
+        description: 'Kumpulkan momen petualangan dalam satu album.',
+        icon: Icons.collections_rounded,
+        iconColor: Color(0xFF2375A7),
+        backgroundColor: Color(0xFFEFF7FB),
+        artColor: Color(0xFFBBD9E8),
+        disabled: true,
+      ),
+    ];
+
+    return Column(
+      children: [
+        for (var index = 0; index < actions.length; index++) ...[
+          SizedBox(
+            height: 112,
+            width: double.infinity,
+            child: actions[index],
+          ),
+          if (index != actions.length - 1) const SizedBox(height: 12),
+        ],
       ],
     );
   }
@@ -396,116 +400,134 @@ class _ActionCard extends StatelessWidget {
                   ),
                 ),
               ),
-            Positioned(
-              left: 16,
-              top: 16,
-              child: Container(
-                width: 46,
-                height: 46,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.48),
-                  borderRadius: BorderRadius.circular(13),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 16,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Icon(icon, color: iconColor, size: 24),
-              ),
-            ),
-            Positioned(
-              left: 64,
-              right: 12,
-              top: 20,
-              child: Text(
-                title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.plusJakartaSans(
-                  color:
-                      disabled ? const Color(0xFF111827) : AppColors.deepForest,
-                  fontSize: 12.8,
-                  height: 1.08,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0,
-                ),
-              ),
-            ),
-            if (badge != null)
-              Positioned(
-                left: 64,
-                right: 12,
-                top: 54,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    height: 22,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
+              child: Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE5E7EB),
+                      color: Colors.white.withValues(alpha: 0.54),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.08),
+                          blurRadius: 16,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Icon(icon, color: iconColor, size: 25),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                title,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.plusJakartaSans(
+                                  color: disabled
+                                      ? const Color(0xFF111827)
+                                      : AppColors.deepForest,
+                                  fontSize: 14.2,
+                                  height: 1.08,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 0,
+                                ),
+                              ),
+                            ),
+                            if (badge != null) ...[
+                              const SizedBox(width: 8),
+                              Container(
+                                height: 22,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE5E7EB),
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  badge!,
+                                  maxLines: 1,
+                                  style: GoogleFonts.plusJakartaSans(
+                                    color: const Color(0xFF4B5563),
+                                    fontSize: 10.5,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          description,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            color: const Color(0xFF374151),
+                            fontSize: 11.3,
+                            height: 1.26,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: disabled
+                          ? Colors.white.withValues(alpha: 0.82)
+                          : arrowColor.withValues(alpha: 0.94),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.07),
+                          blurRadius: 14,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      disabled
+                          ? Icons.lock_outline_rounded
+                          : Icons.chevron_right_rounded,
+                      color: disabled
+                          ? const Color(0xFF4B5563)
+                          : AppColors.deepForest,
+                      size: disabled ? 18 : 23,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (disabled)
+              Positioned(
+                right: 68,
+                bottom: 14,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.24),
                       borderRadius: BorderRadius.circular(999),
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      badge!,
-                      maxLines: 1,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: const Color(0xFF4B5563),
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: const SizedBox(width: 34, height: 4),
                   ),
                 ),
               ),
-            Positioned(
-              left: 64,
-              right: 67,
-              top: badge == null ? 66 : 82,
-              child: Text(
-                description,
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF374151),
-                  fontSize: 10.2,
-                  height: 1.22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Positioned(
-              right: 14,
-              bottom: 18,
-              child: Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: disabled
-                      ? Colors.white.withValues(alpha: 0.82)
-                      : arrowColor.withValues(alpha: 0.94),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.07),
-                      blurRadius: 14,
-                      offset: const Offset(0, 6),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  disabled
-                      ? Icons.lock_outline_rounded
-                      : Icons.chevron_right_rounded,
-                  color:
-                      disabled ? const Color(0xFF4B5563) : AppColors.deepForest,
-                  size: disabled ? 18 : 23,
-                ),
-              ),
-            ),
           ],
         ),
       ),
