@@ -619,7 +619,7 @@ class _Recommendations extends StatelessWidget {
           final l = locations[i];
           final isEasy = l.difficulty == 'easy' || l.difficulty == null;
           return GestureDetector(
-            onTap: () => context.push('/location/${l.slug}'),
+            onTap: () => context.push('/weekend-recommendation/gunung-prau'),
             child: Container(
               width: cardWidth,
               decoration: BoxDecoration(
