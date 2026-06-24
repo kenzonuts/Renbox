@@ -16,12 +16,12 @@ class CreateScreen extends StatelessWidget {
         bottom: false,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.fromLTRB(18, 24, 18, 132),
+          padding: EdgeInsets.fromLTRB(18, 16, 18, 132),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _CreateHeader(),
-              SizedBox(height: 32),
+              SizedBox(height: 16),
               _HeroTitle(),
               SizedBox(height: 24),
               _UploadAdventureCard(),
@@ -57,33 +57,32 @@ class _HeroTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 196,
+      height: 152,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            right: -46,
-            top: 4,
-            width: 250,
-            height: 176,
-            child: Opacity(
-              opacity: 0.46,
-              child: CustomPaint(
-                painter: _MountainForestPainter(),
-              ),
+            right: -38,
+            top: -18,
+            width: 292,
+            height: 178,
+            child: Image.asset(
+              'img/create/adventure.png',
+              fit: BoxFit.contain,
+              alignment: Alignment.centerRight,
             ),
           ),
           Positioned(
             left: 0,
             top: 0,
-            width: 240,
+            width: 188,
             child: Text(
               'Create\nAdventure',
               maxLines: 2,
               overflow: TextOverflow.visible,
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.deepForest,
-                fontSize: 45,
+                fontSize: 32,
                 height: 0.98,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 0,
@@ -92,16 +91,16 @@ class _HeroTitle extends StatelessWidget {
           ),
           Positioned(
             left: 0,
-            top: 116,
-            width: 210,
+            top: 80,
+            width: 168,
             child: Text(
               'Bagikan pengalaman\nalam terbaikmu.',
               maxLines: 2,
               overflow: TextOverflow.visible,
               style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF4B5563),
-                fontSize: 18,
-                height: 1.35,
+                fontSize: 13,
+                height: 1.3,
                 fontWeight: FontWeight.w500,
               ),
             ),

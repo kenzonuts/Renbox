@@ -154,29 +154,29 @@ class _SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
       child: Container(
-        height: 56,
+        height: 46,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(23),
           boxShadow: [
             BoxShadow(
               color: AppColors.deepForest.withValues(alpha: 0.09),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
+              blurRadius: 14,
+              offset: const Offset(0, 6),
             ),
           ],
         ),
         child: Row(
           children: [
-            const SizedBox(width: 16),
+            const SizedBox(width: 14),
             Icon(
               Icons.search_rounded,
-              size: 22,
+              size: 19,
               color: AppColors.deepForest.withValues(alpha: 0.72),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 8),
             Expanded(
               child: Text(
                 'Cari gunung, air terjun, camping...',
@@ -184,14 +184,14 @@ class _SearchField extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.plusJakartaSans(
                   color: const Color(0xFF7A817D),
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
               ),
             ),
             const Icon(Icons.tune_rounded,
-                size: 20, color: AppColors.deepForest),
-            const SizedBox(width: 16),
+                size: 18, color: AppColors.deepForest),
+            const SizedBox(width: 14),
           ],
         ),
       ),
