@@ -809,98 +809,108 @@ class _CommunityPosts extends StatelessWidget {
             final username = p.profile?.username ?? 'explorer';
             return Container(
               width: 280,
-              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: const [
                   BoxShadow(color: Color(0x11000000), blurRadius: 12),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 17,
-                        backgroundImage: p.profile?.avatarUrl == null
-                            ? null
-                            : NetworkImage(p.profile!.avatarUrl!),
-                        child: p.profile?.avatarUrl == null
-                            ? const Icon(Icons.person, size: 18)
-                            : null,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              child: Material(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(18),
+                  onTap: () =>
+                      context.push('/community-story/sunrise-gunung-prau'),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Text(
-                              '@$username  ✓',
-                              style: GoogleFonts.plusJakartaSans(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 11,
+                            CircleAvatar(
+                              radius: 17,
+                              backgroundImage: p.profile?.avatarUrl == null
+                                  ? null
+                                  : NetworkImage(p.profile!.avatarUrl!),
+                              child: p.profile?.avatarUrl == null
+                                  ? const Icon(Icons.person, size: 18)
+                                  : null,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '@$username  ✓',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                  Text(
+                                    '● ${p.location?.name ?? ''}  ·  ${_timeAgo(p.createdAt)}',
+                                    style: GoogleFonts.plusJakartaSans(
+                                      fontSize: 9,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              '● ${p.location?.name ?? ''}  ·  ${_timeAgo(p.createdAt)}',
-                              style: GoogleFonts.plusJakartaSans(
-                                fontSize: 9,
-                                color: Colors.black54,
-                              ),
-                            ),
+                            const Icon(Icons.more_horiz, size: 18),
                           ],
                         ),
-                      ),
-                      const Icon(Icons.more_horiz, size: 18),
-                    ],
-                  ),
-                  const SizedBox(height: 9),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: CachedNetworkImage(
-                      imageUrl: p.imageUrl,
-                      height: 155,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                        const SizedBox(height: 9),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: p.imageUrl,
+                            height: 155,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          p.caption ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 10,
+                            height: 1.4,
+                          ),
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            const Icon(Icons.favorite_border, size: 18),
+                            Text(
+                              ' ${_formatCount(p.likesCount)}',
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                            const SizedBox(width: 16),
+                            const Icon(Icons.chat_bubble_outline, size: 17),
+                            Text(
+                              ' ${p.commentsCount}',
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                            const SizedBox(width: 16),
+                            const Icon(Icons.share_outlined, size: 17),
+                            Text(
+                              ' ${p.sharesCount}',
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.bookmark_border, size: 18),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    p.caption ?? '',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 10,
-                      height: 1.4,
-                    ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      const Icon(Icons.favorite_border, size: 18),
-                      Text(
-                        ' ${_formatCount(p.likesCount)}',
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.chat_bubble_outline, size: 17),
-                      Text(
-                        ' ${p.commentsCount}',
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.share_outlined, size: 17),
-                      Text(
-                        ' ${p.sharesCount}',
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.bookmark_border, size: 18),
-                    ],
-                  ),
-                ],
+                ),
               ),
             );
           },

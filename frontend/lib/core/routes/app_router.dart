@@ -11,6 +11,7 @@ import '../../features/create/screens/upload_post_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/explore/screens/weekend_recommendation_detail_screen.dart';
+import '../../features/home/screens/community_story_detail_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/main/screens/main_shell.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
@@ -87,6 +88,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: WeekendRecommendationDetailScreen.routePath,
         builder: (_, __) => const WeekendRecommendationDetailScreen(),
+      ),
+      GoRoute(
+        path: CommunityStoryDetailScreen.routePath,
+        builder: (_, __) => const CommunityStoryDetailScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (_, __, navigationShell) =>
