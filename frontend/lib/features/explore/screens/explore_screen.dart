@@ -489,6 +489,7 @@ class _NearbyList extends StatelessWidget {
     const cards = [
       _NearbyDestination(
         title: 'Gunung Prau',
+        slug: 'gunung-prau',
         region: 'Dieng, Jawa Tengah',
         distance: '6.5 km',
         rating: '4.8',
@@ -498,6 +499,7 @@ class _NearbyList extends StatelessWidget {
       ),
       _NearbyDestination(
         title: 'Gunung Andong',
+        slug: 'gunung-andong',
         region: 'Magelang, Jawa Tengah',
         distance: '7.8 km',
         rating: '4.7',
@@ -507,6 +509,7 @@ class _NearbyList extends StatelessWidget {
       ),
       _NearbyDestination(
         title: 'Gunung Merbabu',
+        slug: 'gunung-merbabu',
         region: 'Boyolali, Jawa Tengah',
         distance: '9.5 km',
         rating: '4.8',
@@ -534,6 +537,7 @@ class _NearbyList extends StatelessWidget {
 class _NearbyDestination extends StatelessWidget {
   const _NearbyDestination({
     required this.title,
+    required this.slug,
     required this.region,
     required this.distance,
     required this.rating,
@@ -543,6 +547,7 @@ class _NearbyDestination extends StatelessWidget {
   });
 
   final String title;
+  final String slug;
   final String region;
   final String distance;
   final String rating;
@@ -552,90 +557,110 @@ class _NearbyDestination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 134,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.deepForest.withValues(alpha: 0.07),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 82,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                _NetworkPhoto(url: image),
-                Positioned(
-                  left: 8,
-                  top: 8,
-                  child: _TinyBadge(
-                    icon: Icons.location_on,
-                    label: distance,
-                    background: const Color(0xFFEAF3F6).withValues(alpha: 0.95),
-                    color: AppColors.deepForest,
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: _RoundIcon(
-                    icon: Icons.bookmark_border_rounded,
-                    color: AppColors.deepForest,
-                    background: Colors.white.withValues(alpha: 0.94),
-                    size: 26,
-                    iconSize: 15,
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onTap: () => context.push('/location/$slug'),
+      child: Container(
+        width: 134,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.deepForest.withValues(alpha: 0.07),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.plusJakartaSans(
-                    color: AppColors.deepForest,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    height: 1.1,
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 82,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  _NetworkPhoto(url: image),
+                  Positioned(
+                    left: 8,
+                    top: 8,
+                    child: _TinyBadge(
+                      icon: Icons.location_on,
+                      label: distance,
+                      background:
+                          const Color(0xFFEAF3F6).withValues(alpha: 0.95),
+                      color: AppColors.deepForest,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  region,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.plusJakartaSans(
-                    color: const Color(0xFF6B7280),
-                    fontSize: 8,
-                    fontWeight: FontWeight.w500,
-                    height: 1,
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: _RoundIcon(
+                      icon: Icons.bookmark_border_rounded,
+                      color: AppColors.deepForest,
+                      background: Colors.white.withValues(alpha: 0.94),
+                      size: 26,
+                      iconSize: 15,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 7),
-                Row(
-                  children: [
-                    const Icon(Icons.star_rounded,
-                        color: Color(0xFFFFC247), size: 10),
-                    const SizedBox(width: 2),
-                    Expanded(
-                      child: Text(
-                        '$rating ($reviews)',
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.plusJakartaSans(
+                      color: AppColors.deepForest,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      height: 1.1,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    region,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.plusJakartaSans(
+                      color: const Color(0xFF6B7280),
+                      fontSize: 8,
+                      fontWeight: FontWeight.w500,
+                      height: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  Row(
+                    children: [
+                      const Icon(Icons.star_rounded,
+                          color: Color(0xFFFFC247), size: 10),
+                      const SizedBox(width: 2),
+                      Expanded(
+                        child: Text(
+                          '$rating ($reviews)',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.plusJakartaSans(
+                            color: AppColors.deepForest,
+                            fontSize: 8,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.terrain_rounded,
+                        color: AppColors.deepForest.withValues(alpha: 0.72),
+                        size: 10,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        elevation.replaceAll(' mdpl', ''),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.plusJakartaSans(
@@ -644,29 +669,13 @@ class _NearbyDestination extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
-                    Icon(
-                      Icons.terrain_rounded,
-                      color: AppColors.deepForest.withValues(alpha: 0.72),
-                      size: 10,
-                    ),
-                    const SizedBox(width: 2),
-                    Text(
-                      elevation.replaceAll(' mdpl', ''),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.plusJakartaSans(
-                        color: AppColors.deepForest,
-                        fontSize: 8,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
