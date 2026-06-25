@@ -13,6 +13,8 @@ import '../../features/all_features/screens/all_features_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/explore/screens/weekend_recommendation_detail_screen.dart';
+import '../../features/explore/routes/weekend_recommendation_routes.dart';
+import '../../features/explore/screens/weekend_recommendations_list_screen.dart';
 import '../../features/home/screens/community_story_detail_screen.dart';
 import '../../features/home/screens/community_stories_list_screen.dart';
 import '../../features/home/screens/home_screen.dart';
@@ -95,6 +97,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: WeekendRecommendationDetailScreen.routePath,
         builder: (_, __) => const WeekendRecommendationDetailScreen(),
+      ),
+      GoRoute(
+        path: WeekendRecommendationRoutes.list,
+        builder: (_, __) => const WeekendRecommendationsListScreen(),
       ),
       GoRoute(
         path: CommunityStoryDetailScreen.routePath,

@@ -13,6 +13,7 @@ import '../../all_features/routes/all_features_routes.dart';
 import '../../../models/location_model.dart';
 import '../../../models/post_model.dart';
 import '../../auth/providers/auth_provider.dart';
+import '../../explore/routes/weekend_recommendation_routes.dart';
 import '../providers/home_provider.dart';
 
 const _green = Color(0xFF124D3B);
@@ -74,7 +75,11 @@ class HomeScreen extends ConsumerWidget {
                     const SizedBox(height: 10),
                     const _QuickAccess(),
                     const SizedBox(height: 24),
-                    const _SectionTitle(title: 'REKOMENDASI AKHIR PEKAN'),
+                    _SectionTitle(
+                      title: 'REKOMENDASI AKHIR PEKAN',
+                      onTap: () =>
+                          context.push(WeekendRecommendationRoutes.list),
+                    ),
                     const SizedBox(height: 10),
                     _Recommendations(locations: state.featuredList),
                     const SizedBox(height: 24),
