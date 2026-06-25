@@ -12,6 +12,7 @@ import '../../features/all_features/routes/all_features_routes.dart';
 import '../../features/all_features/screens/all_features_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
+import '../../features/explore/screens/nearby_destinations_screen.dart';
 import '../../features/explore/screens/weekend_recommendation_detail_screen.dart';
 import '../../features/explore/routes/weekend_recommendation_routes.dart';
 import '../../features/explore/screens/weekend_recommendations_list_screen.dart';
@@ -85,6 +86,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, state) => LocationDetailScreen(
           slug: state.pathParameters['slug']!,
         ),
+      ),
+      GoRoute(
+        path: NearbyDestinationsScreen.routePath,
+        builder: (_, __) => const NearbyDestinationsScreen(),
       ),
       GoRoute(
         path: '/adventure-passport',

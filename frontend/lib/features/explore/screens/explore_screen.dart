@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_top_header.dart';
 import '../../auth/providers/auth_provider.dart';
+import 'nearby_destinations_screen.dart';
 
 class ExploreScreen extends ConsumerWidget {
   const ExploreScreen({super.key});
@@ -58,12 +59,14 @@ class ExploreScreen extends ConsumerWidget {
                 ),
               ),
               const SliverToBoxAdapter(child: _HeroDestinationCard()),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: _SectionHeader(
                     icon: Icons.location_on_outlined,
                     title: 'Dekat Denganmu',
+                    onTap: () =>
+                        context.push(NearbyDestinationsScreen.routePath),
                   ),
                 ),
               ),
@@ -256,10 +259,15 @@ class _CategoryTabs extends StatelessWidget {
 }
 
 class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.icon, required this.title});
+  const _SectionHeader({
+    required this.icon,
+    required this.title,
+    this.onTap,
+  });
 
   final IconData icon;
   final String title;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -276,17 +284,28 @@ class _SectionHeader extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Text(
-          'Lihat Semua',
-          style: GoogleFonts.plusJakartaSans(
-            color: AppColors.deepForest,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
+        GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.opaque,
+          child: Row(
+            children: [
+              Text(
+                'Lihat Semua',
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: AppColors.deepForest,
+                size: 16,
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 8),
-        const Icon(Icons.arrow_forward_rounded,
-            color: AppColors.deepForest, size: 16),
       ],
     );
   }
