@@ -9,6 +9,7 @@ import '../../../core/constants/app_layout.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_top_header.dart';
 import '../../../core/widgets/loading_view.dart';
+import '../../all_features/routes/all_features_routes.dart';
 import '../../../models/location_model.dart';
 import '../../../models/post_model.dart';
 import '../../auth/providers/auth_provider.dart';
@@ -65,9 +66,10 @@ class HomeScreen extends ConsumerWidget {
                   children: [
                     const _PassportCard(),
                     const SizedBox(height: 22),
-                    const _SectionTitle(
+                    _SectionTitle(
                       title: 'AKSES CEPAT',
                       action: 'Semua Fitur',
+                      onTap: () => context.push(AllFeaturesRoutes.allFeatures),
                     ),
                     const SizedBox(height: 10),
                     const _QuickAccess(),

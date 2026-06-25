@@ -8,6 +8,8 @@ import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/create/screens/create_screen.dart';
 import '../../features/create/screens/upload_post_screen.dart';
+import '../../features/all_features/routes/all_features_routes.dart';
+import '../../features/all_features/screens/all_features_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/explore/screens/weekend_recommendation_detail_screen.dart';
@@ -85,6 +87,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/adventure-passport',
         builder: (_, __) => const AdventurePassportScreen(),
+      ),
+      GoRoute(
+        path: AllFeaturesRoutes.allFeatures,
+        builder: (_, __) => const AllFeaturesScreen(),
       ),
       GoRoute(
         path: WeekendRecommendationDetailScreen.routePath,
