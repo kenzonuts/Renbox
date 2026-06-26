@@ -13,6 +13,7 @@ import '../../features/all_features/screens/all_features_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/explore/screens/nearby_destinations_screen.dart';
+import '../../features/explore/screens/popular_this_week_screen.dart';
 import '../../features/explore/screens/weekend_recommendation_detail_screen.dart';
 import '../../features/explore/routes/weekend_recommendation_routes.dart';
 import '../../features/explore/screens/weekend_recommendations_list_screen.dart';
@@ -90,6 +91,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: NearbyDestinationsScreen.routePath,
         builder: (_, __) => const NearbyDestinationsScreen(),
+      ),
+      GoRoute(
+        path: PopularThisWeekScreen.routePath,
+        builder: (_, __) => const PopularThisWeekScreen(),
       ),
       GoRoute(
         path: '/adventure-passport',

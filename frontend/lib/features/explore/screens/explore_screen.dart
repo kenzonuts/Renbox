@@ -8,6 +8,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_top_header.dart';
 import '../../auth/providers/auth_provider.dart';
 import 'nearby_destinations_screen.dart';
+import 'popular_this_week_screen.dart';
 
 class ExploreScreen extends ConsumerWidget {
   const ExploreScreen({super.key});
@@ -49,12 +50,13 @@ class ExploreScreen extends ConsumerWidget {
               const SliverToBoxAdapter(child: _TitleBlock()),
               const SliverToBoxAdapter(child: _SearchField()),
               const SliverToBoxAdapter(child: _CategoryTabs()),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
                   child: _SectionHeader(
                     icon: Icons.local_fire_department_rounded,
                     title: 'Populer Minggu Ini',
+                    onTap: () => context.push(PopularThisWeekScreen.routePath),
                   ),
                 ),
               ),
