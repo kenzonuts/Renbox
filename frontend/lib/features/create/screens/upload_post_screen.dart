@@ -50,15 +50,15 @@ class _UploadPostScreenState extends State<UploadPostScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const _UploadHeader(),
-                const SizedBox(height: 34),
-                const _StepIndicator(),
-                const SizedBox(height: 44),
-                const _PhotoSectionTitle(),
-                const SizedBox(height: 28),
-                _PhotoPreviewCard(image: _image),
                 const SizedBox(height: 20),
+                const _StepIndicator(),
+                const SizedBox(height: 30),
+                const _PhotoSectionTitle(),
+                const SizedBox(height: 22),
+                _PhotoPreviewCard(image: _image),
+                const SizedBox(height: 18),
                 const _PhotoDots(),
-                const SizedBox(height: 34),
+                const SizedBox(height: 28),
                 _ActionGrid(onPickImage: _pickImage),
               ],
             ),
@@ -82,7 +82,7 @@ class _UploadHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 104,
+      height: 94,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -97,14 +97,14 @@ class _UploadHeader extends StatelessWidget {
           Positioned(
             left: 66,
             top: 8,
-            right: 92,
+            right: 0,
             child: Text(
               'Upload Petualangan',
               maxLines: 1,
               overflow: TextOverflow.visible,
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.deepForest,
-                fontSize: 32,
+                fontSize: 27,
                 height: 1,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 0,
@@ -113,13 +113,13 @@ class _UploadHeader extends StatelessWidget {
           ),
           Positioned(
             left: 66,
-            top: 52,
+            top: 48,
             right: 4,
             child: Text(
               'Bagikan cerita dari perjalananmu\ndan inspirasi untuk explorer lainnya.',
               style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF6B7280),
-                fontSize: 16,
+                fontSize: 14.5,
                 height: 1.42,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0,
@@ -131,7 +131,7 @@ class _UploadHeader extends StatelessWidget {
             top: 4,
             child: Container(
               height: 50,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 22),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -148,7 +148,7 @@ class _UploadHeader extends StatelessWidget {
                 'Draft',
                 style: GoogleFonts.plusJakartaSans(
                   color: AppColors.deepForest,
-                  fontSize: 16,
+                  fontSize: 15,
                   height: 1,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 0,
@@ -309,7 +309,7 @@ class _PhotoSectionTitle extends StatelessWidget {
           'Foto yang bagus akan membuat ceritamu\nlebih bermakna.',
           style: GoogleFonts.plusJakartaSans(
             color: const Color(0xFF6B7280),
-            fontSize: 16,
+            fontSize: 15,
             height: 1.52,
             fontWeight: FontWeight.w600,
             letterSpacing: 0,
@@ -329,7 +329,7 @@ class _PhotoPreviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 330,
+      height: 193,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Colors.white,
