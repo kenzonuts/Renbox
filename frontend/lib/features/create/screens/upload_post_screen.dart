@@ -1,45 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-class UploadPostScreen extends StatefulWidget {
+class UploadPostScreen extends StatelessWidget {
   const UploadPostScreen({super.key});
-
-  @override
-  State<UploadPostScreen> createState() => _UploadPostScreenState();
-}
-
-class _UploadPostScreenState extends State<UploadPostScreen> {
-  static const _storyText = 'Sunrise di Gunung Prau benar-benar luar biasa.\n\n'
-      'Udara dingin, langit jernih, dan pemandangan 360° membuat semua rasa lelah selama pendakian langsung terbayar.\n\n'
-      'Kalau ada satu tempat yang ingin aku datangi lagi, mungkin ini jawabannya.';
-
-  final _picker = ImagePicker();
-  final _storyController = TextEditingController(text: _storyText);
-  XFile? _image;
-
-  Future<void> _pickImage() async {
-    final image = await _picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1920,
-      imageQuality: 88,
-    );
-    if (image != null && mounted) {
-      setState(() => _image = image);
-    }
-  }
-
-  @override
-  void dispose() {
-    _storyController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +24,28 @@ class _UploadPostScreenState extends State<UploadPostScreen> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.fromLTRB(24, 24, 24, bottomPadding + 104),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const _UploadHeader(),
-                const SizedBox(height: 22),
-                const _StepIndicator(),
-                const SizedBox(height: 34),
-                const _StorySectionTitle(),
-                const SizedBox(height: 20),
-                _CompactPhotoPreview(image: _image, onEdit: _pickImage),
-                const SizedBox(height: 18),
-                _StoryEditor(controller: _storyController),
-                const SizedBox(height: 18),
-                const _TipsCard(),
-                const SizedBox(height: 24),
-                const _QuickTags(),
+                _UploadHeader(),
+                SizedBox(height: 18),
+                _StepIndicator(),
+                SizedBox(height: 20),
+                _ScreenTitle(),
+                SizedBox(height: 20),
+                _LocationCard(),
+                SizedBox(height: 26),
+                _CategorySection(),
+                SizedBox(height: 28),
+                _SoftDivider(),
+                SizedBox(height: 22),
+                _PassportSection(),
+                SizedBox(height: 18),
+                _PassportInfoCard(),
+                SizedBox(height: 26),
+                _SoftDivider(),
+                SizedBox(height: 22),
+                _VisibilitySection(),
               ],
             ),
           ),
@@ -94,9 +67,9 @@ class _UploadPostScreenState extends State<UploadPostScreen> {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  flex: 13,
+                  flex: 14,
                   child: _BottomButton(
-                    label: 'Lanjut',
+                    label: 'Lanjut ke Preview',
                     icon: Icons.arrow_forward_rounded,
                     primary: true,
                     trailingIcon: true,
@@ -118,7 +91,7 @@ class _UploadHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 94,
+      height: 72,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -132,31 +105,36 @@ class _UploadHeader extends StatelessWidget {
           ),
           Positioned(
             left: 54,
-            top: 8,
-            right: 0,
-            child: Text(
-              'Upload Petualangan',
-              maxLines: 1,
-              overflow: TextOverflow.visible,
-              style: GoogleFonts.plusJakartaSans(
-                color: AppColors.deepForest,
-                fontSize: 22,
-                height: 1,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0,
+            top: 7,
+            right: 84,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Upload Petualangan',
+                maxLines: 1,
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 22,
+                  height: 1,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
               ),
             ),
           ),
           Positioned(
             left: 54,
-            top: 48,
+            top: 42,
             right: 4,
             child: Text(
-              'Bagikan cerita dari perjalananmu\ndan inspirasi untuk explorer lainnya.',
+              'Bagikan cerita perjalananmu.',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.plusJakartaSans(
                 color: const Color(0xFF6B7280),
                 fontSize: 14.5,
-                height: 1.42,
+                height: 1.2,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0,
               ),
@@ -164,7 +142,7 @@ class _UploadHeader extends StatelessWidget {
           ),
           Positioned(
             right: 0,
-            top: 4,
+            top: 2,
             child: Container(
               height: 50,
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -233,15 +211,15 @@ class _StepIndicator extends StatelessWidget {
 
   static const _steps = [
     _UploadStep('1', 'Pilih Foto', completed: true),
-    _UploadStep('2', 'Ceritakan', active: true),
-    _UploadStep('3', 'Pilih Lokasi'),
-    _UploadStep('4', 'Selesai'),
+    _UploadStep('2', 'Ceritakan', completed: true),
+    _UploadStep('3', 'Pilih Lokasi', active: true),
+    _UploadStep('4', 'Preview'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 84,
+      height: 88,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -250,7 +228,7 @@ class _StepIndicator extends StatelessWidget {
             right: 70,
             top: 28,
             child: CustomPaint(
-              painter: _DashedLinePainter(activeFraction: 0.34),
+              painter: _DashedLinePainter(activeFraction: 0.67),
               child: SizedBox(height: 1),
             ),
           ),
@@ -309,7 +287,7 @@ class _StepIndicator extends StatelessWidget {
                             color: step.isGreen
                                 ? AppColors.deepForest
                                 : const Color(0xFF6B7280),
-                            fontSize: 13.5,
+                            fontSize: 13.2,
                             height: 1,
                             fontWeight: step.isGreen
                                 ? FontWeight.w800
@@ -329,38 +307,44 @@ class _StepIndicator extends StatelessWidget {
   }
 }
 
-class _StorySectionTitle extends StatelessWidget {
-  const _StorySectionTitle();
+class _ScreenTitle extends StatelessWidget {
+  const _ScreenTitle();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Ceritakan pengalamanmu 🌿',
-              maxLines: 1,
-              style: GoogleFonts.plusJakartaSans(
-                color: AppColors.deepForest,
-                fontSize: 30,
-                height: 1.08,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0,
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Pilih Lokasi & Detail',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 24,
+                  height: 1.08,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
               ),
             ),
-          ),
+            const SizedBox(width: 8),
+            const Icon(
+              Icons.location_on_outlined,
+              color: Color(0xFFB94A48),
+              size: 25,
+            ),
+          ],
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 14),
         Text(
-          'Apa yang kamu rasakan di tempat ini?',
+          'Beritahu di mana petualanganmu terjadi.',
           style: GoogleFonts.plusJakartaSans(
             color: const Color(0xFF6B7280),
-            fontSize: 16,
+            fontSize: 15,
             height: 1.35,
             fontWeight: FontWeight.w700,
             letterSpacing: 0,
@@ -371,128 +355,14 @@ class _StorySectionTitle extends StatelessWidget {
   }
 }
 
-class _CompactPhotoPreview extends StatelessWidget {
-  const _CompactPhotoPreview({required this.image, required this.onEdit});
-
-  final XFile? image;
-  final VoidCallback onEdit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 120,
-          height: 90,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x0F000000),
-                blurRadius: 24,
-                offset: Offset(0, 8),
-              ),
-            ],
-          ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              image == null
-                  ? Image.asset(
-                      'img/create/Upload.png',
-                      fit: BoxFit.cover,
-                      alignment: const Alignment(0.42, 0),
-                    )
-                  : Image.file(
-                      File(image!.path),
-                      fit: BoxFit.cover,
-                    ),
-              Positioned(
-                right: 8,
-                bottom: 8,
-                child: GestureDetector(
-                  onTap: onEdit,
-                  child: Container(
-                    height: 28,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.94),
-                      borderRadius: BorderRadius.circular(999),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x14000000),
-                          blurRadius: 12,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      'Edit Foto',
-                      style: GoogleFonts.plusJakartaSans(
-                        color: AppColors.deepForest,
-                        fontSize: 10.5,
-                        height: 1,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Sunrise di Gunung Prau',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.plusJakartaSans(
-                  color: AppColors.deepForest,
-                  fontSize: 17,
-                  height: 1.2,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0,
-                ),
-              ),
-              const SizedBox(height: 9),
-              Text(
-                'Foto utama petualanganmu',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF6B7280),
-                  fontSize: 13,
-                  height: 1,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _StoryEditor extends StatelessWidget {
-  const _StoryEditor({required this.controller});
-
-  final TextEditingController controller;
+class _LocationCard extends StatelessWidget {
+  const _LocationCard();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+      height: 104,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -504,43 +374,75 @@ class _StoryEditor extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
+      child: Row(
         children: [
-          Expanded(
-            child: TextField(
-              controller: controller,
-              maxLines: null,
-              expands: true,
-              textAlignVertical: TextAlignVertical.top,
-              cursorColor: AppColors.deepForest,
-              decoration: InputDecoration(
-                hintText: 'Apa cerita terbaik dari perjalananmu?',
-                hintStyle: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF9CA3AF),
-                  fontSize: 15.5,
-                  height: 1.45,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 0,
-                ),
-                border: InputBorder.none,
-                isCollapsed: true,
-              ),
-              style: GoogleFonts.plusJakartaSans(
-                color: const Color(0xFF243044),
-                fontSize: 15.5,
-                height: 1.5,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: SizedBox(
+              width: 72,
+              height: 72,
+              child: Image.asset(
+                'img/create/Upload.png',
+                fit: BoxFit.cover,
+                alignment: const Alignment(0.42, 0),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Gunung Prau',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.plusJakartaSans(
+                    color: AppColors.deepForest,
+                    fontSize: 17,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Dieng, Jawa Tengah',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.plusJakartaSans(
+                    color: const Color(0xFF6B7280),
+                    fontSize: 14,
+                    height: 1,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            height: 38,
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.cream.withValues(alpha: 0.74),
+              borderRadius: BorderRadius.circular(999),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x0A000000),
+                  blurRadius: 16,
+                  offset: Offset(0, 6),
+                ),
+              ],
+            ),
             child: Text(
-              '128 / 1000',
+              'Ubah',
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.forestGreen,
-                fontSize: 12.5,
+                fontSize: 13,
                 height: 1,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 0,
@@ -553,71 +455,16 @@ class _StoryEditor extends StatelessWidget {
   }
 }
 
-class _TipsCard extends StatelessWidget {
-  const _TipsCard();
+class _CategorySection extends StatelessWidget {
+  const _CategorySection();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
-      decoration: BoxDecoration(
-        color: AppColors.forestGreen.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            '💡',
-            style: TextStyle(fontSize: 22, height: 1.05),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                style: GoogleFonts.plusJakartaSans(
-                  color: const Color(0xFF6B7280),
-                  fontSize: 13,
-                  height: 1.45,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0,
-                ),
-                children: [
-                  TextSpan(
-                    text: 'Tips: ',
-                    style: GoogleFonts.plusJakartaSans(
-                      color: AppColors.deepForest,
-                      fontSize: 13,
-                      height: 1.45,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0,
-                    ),
-                  ),
-                  const TextSpan(
-                    text:
-                        'Cerita yang jujur dan detail akan membantu explorer lain mengetahui pengalamanmu.',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuickTags extends StatelessWidget {
-  const _QuickTags();
-
-  static const _tags = [
-    '☀️ Sunrise',
-    '🌄 Sunset',
-    '🥾 Hiking',
-    '🏕 Camping',
-    '🌿 Hidden Gem',
-    '✨ View Point',
+  static const _categories = [
+    _CategoryItem(Icons.terrain_rounded, 'Gunung', true),
+    _CategoryItem(Icons.change_history_rounded, 'Camping', false),
+    _CategoryItem(Icons.water_drop_rounded, 'Air Terjun', false),
+    _CategoryItem(Icons.wb_sunny_outlined, 'Sunrise', false),
+    _CategoryItem(Icons.park_outlined, 'Hutan', false),
+    _CategoryItem(Icons.water_rounded, 'Danau', false),
   ];
 
   @override
@@ -626,60 +473,347 @@ class _QuickTags extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tambahkan suasana (opsional)',
+          'Kategori',
           style: GoogleFonts.plusJakartaSans(
             color: AppColors.deepForest,
-            fontSize: 15,
+            fontSize: 18,
             height: 1,
             fontWeight: FontWeight.w800,
             letterSpacing: 0,
           ),
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: 12),
+        Text(
+          'Pilih kategori yang sesuai',
+          style: GoogleFonts.plusJakartaSans(
+            color: const Color(0xFF6B7280),
+            fontSize: 14,
+            height: 1,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0,
+          ),
+        ),
+        const SizedBox(height: 18),
         SizedBox(
-          height: 42,
+          height: 78,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             clipBehavior: Clip.none,
-            itemCount: _tags.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemCount: _categories.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              final selected = index == 0;
+              final category = _categories[index];
               return Container(
-                height: 42,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
+                width: 78,
                 decoration: BoxDecoration(
-                  color: selected ? AppColors.forestGreen : Colors.white,
-                  borderRadius: BorderRadius.circular(999),
-                  border: Border.all(
-                    color:
-                        selected ? AppColors.forestGreen : Colors.transparent,
-                  ),
+                  color:
+                      category.selected ? AppColors.forestGreen : Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x0F000000),
-                      blurRadius: 20,
+                      blurRadius: 24,
                       offset: Offset(0, 8),
                     ),
                   ],
                 ),
-                child: Text(
-                  _tags[index],
-                  style: GoogleFonts.plusJakartaSans(
-                    color: selected ? Colors.white : AppColors.deepForest,
-                    fontSize: 13,
-                    height: 1,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      category.icon,
+                      size: 28,
+                      color: category.selected
+                          ? Colors.white
+                          : AppColors.forestGreen,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      category.label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.plusJakartaSans(
+                        color: category.selected
+                            ? Colors.white
+                            : AppColors.deepForest,
+                        fontSize: 12,
+                        height: 1,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0,
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
           ),
         ),
       ],
+    );
+  }
+}
+
+class _PassportSection extends StatelessWidget {
+  const _PassportSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Tambahkan ke Passport Explorer',
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 18,
+                  height: 1.2,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Lokasi ini akan tersimpan dalam koleksi perjalananmu.',
+                style: GoogleFonts.plusJakartaSans(
+                  color: const Color(0xFF6B7280),
+                  fontSize: 14,
+                  height: 1.5,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 18),
+        const _IosToggle(),
+      ],
+    );
+  }
+}
+
+class _PassportInfoCard extends StatelessWidget {
+  const _PassportInfoCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 88,
+      padding: const EdgeInsets.fromLTRB(18, 14, 16, 14),
+      decoration: BoxDecoration(
+        color: AppColors.forestGreen.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 60,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.forestGreen,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x1A1B4332),
+                  blurRadius: 12,
+                  offset: Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.terrain_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  'PASSPORT',
+                  style: GoogleFonts.plusJakartaSans(
+                    color: Colors.white,
+                    fontSize: 5.8,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Koleksi perjalananmu makin lengkap!',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.plusJakartaSans(
+                    color: AppColors.deepForest,
+                    fontSize: 13.5,
+                    height: 1,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0,
+                  ),
+                ),
+                const SizedBox(height: 9),
+                Text(
+                  'Destinasi ini akan otomatis masuk ke koleksi Passport Explorer setelah diposting.',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.plusJakartaSans(
+                    color: const Color(0xFF6B7280),
+                    fontSize: 12.3,
+                    height: 1.28,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Icon(
+            Icons.chevron_right_rounded,
+            color: AppColors.deepForest,
+            size: 26,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VisibilitySection extends StatelessWidget {
+  const _VisibilitySection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Siapa yang bisa melihat?',
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 18,
+                  height: 1,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Cerita akan muncul di feed publik.',
+                style: GoogleFonts.plusJakartaSans(
+                  color: const Color(0xFF6B7280),
+                  fontSize: 14,
+                  height: 1,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 16),
+        Container(
+          height: 44,
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(999),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0F000000),
+                blurRadius: 20,
+                offset: Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              const Text(
+                '🌍',
+                style: TextStyle(fontSize: 18, height: 1),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Publik',
+                style: GoogleFonts.plusJakartaSans(
+                  color: AppColors.deepForest,
+                  fontSize: 14,
+                  height: 1,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: AppColors.deepForest,
+                size: 22,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _IosToggle extends StatelessWidget {
+  const _IosToggle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 58,
+      height: 34,
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: AppColors.forestGreen,
+        borderRadius: BorderRadius.circular(999),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x142D6A4F),
+            blurRadius: 14,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+          width: 28,
+          height: 28,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 8,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -722,30 +856,45 @@ class _BottomButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!trailingIcon) ...[
-              Icon(icon, color: foreground, size: 25),
-              const SizedBox(width: 12),
-            ],
-            Text(
-              label,
-              style: GoogleFonts.plusJakartaSans(
-                color: foreground,
-                fontSize: 17,
-                height: 1,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!trailingIcon) ...[
+                Icon(icon, color: foreground, size: 25),
+                const SizedBox(width: 12),
+              ],
+              Text(
+                label,
+                style: GoogleFonts.plusJakartaSans(
+                  color: foreground,
+                  fontSize: 16.5,
+                  height: 1,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0,
+                ),
               ),
-            ),
-            if (trailingIcon) ...[
-              const SizedBox(width: 16),
-              Icon(icon, color: foreground, size: 29),
+              if (trailingIcon) ...[
+                const SizedBox(width: 14),
+                Icon(icon, color: foreground, size: 27),
+              ],
             ],
-          ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class _SoftDivider extends StatelessWidget {
+  const _SoftDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 1,
+      color: AppColors.stone.withValues(alpha: 0.56),
     );
   }
 }
@@ -759,7 +908,6 @@ class _DashedLinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _drawDashedLine(
       canvas,
-      size,
       paint: Paint()
         ..color = const Color(0xFFDADADA)
         ..strokeWidth = 2
@@ -768,7 +916,6 @@ class _DashedLinePainter extends CustomPainter {
     );
     _drawDashedLine(
       canvas,
-      size,
       paint: Paint()
         ..color = AppColors.forestGreen
         ..strokeWidth = 2
@@ -778,8 +925,7 @@ class _DashedLinePainter extends CustomPainter {
   }
 
   void _drawDashedLine(
-    Canvas canvas,
-    Size size, {
+    Canvas canvas, {
     required Paint paint,
     required double maxWidth,
   }) {
@@ -814,4 +960,12 @@ class _UploadStep {
   final bool active;
 
   bool get isGreen => completed || active;
+}
+
+class _CategoryItem {
+  const _CategoryItem(this.icon, this.label, this.selected);
+
+  final IconData icon;
+  final String label;
+  final bool selected;
 }
