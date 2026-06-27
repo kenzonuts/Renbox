@@ -11,6 +11,7 @@ import '../../features/create/screens/upload_post_screen.dart';
 import '../../features/all_features/routes/all_features_routes.dart';
 import '../../features/all_features/screens/all_features_screen.dart';
 import '../../features/explore/screens/explore_screen.dart';
+import '../../features/explore/screens/hidden_gems_screen.dart';
 import '../../features/explore/screens/location_detail_screen.dart';
 import '../../features/explore/screens/nearby_destinations_screen.dart';
 import '../../features/explore/screens/popular_this_week_screen.dart';
@@ -137,6 +138,12 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/main/explore',
                 builder: (_, __) => const ExploreScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'hidden-gems',
+                    builder: (_, __) => const HiddenGemsScreen(),
+                  ),
+                ],
               ),
             ],
           ),

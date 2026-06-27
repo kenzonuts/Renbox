@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_top_header.dart';
 import '../../auth/providers/auth_provider.dart';
+import 'hidden_gems_screen.dart';
 import 'nearby_destinations_screen.dart';
 import 'popular_this_week_screen.dart';
 
@@ -73,12 +74,13 @@ class ExploreScreen extends ConsumerWidget {
                 ),
               ),
               const SliverToBoxAdapter(child: _NearbyList()),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 18, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
                   child: _SectionHeader(
                     icon: Icons.eco_outlined,
                     title: 'Hidden Gems',
+                    onTap: () => context.push(HiddenGemsScreen.routePath),
                   ),
                 ),
               ),
