@@ -33,6 +33,7 @@ class HiddenGemsScreen extends StatelessWidget {
         body: SafeArea(
           bottom: false,
           child: Stack(
+            clipBehavior: Clip.none,
             children: [
               CustomScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -50,7 +51,7 @@ class HiddenGemsScreen extends StatelessWidget {
               ),
               Positioned(
                 right: 24,
-                bottom: bottomInset + 122,
+                bottom: bottomInset - 30,
                 child: const _FloatingMapButton(),
               ),
             ],
@@ -67,7 +68,7 @@ class _HiddenGemsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 194,
+      height: 166,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -106,7 +107,7 @@ class _HiddenGemsHeader extends StatelessWidget {
           ),
           Positioned(
             left: 70,
-            right: 130,
+            right: 84,
             top: 24,
             child: Text(
               'Hidden Gems',
@@ -114,7 +115,7 @@ class _HiddenGemsHeader extends StatelessWidget {
               overflow: TextOverflow.visible,
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.deepForest,
-                fontSize: 32,
+                fontSize: 30,
                 height: 1,
                 fontWeight: FontWeight.w800,
               ),
@@ -123,7 +124,7 @@ class _HiddenGemsHeader extends StatelessWidget {
           Positioned(
             left: 70,
             right: 24,
-            top: 68,
+            top: 66,
             child: Text(
               'Temukan tempat indah yang belum\nbanyak diketahui orang.',
               style: GoogleFonts.plusJakartaSans(
@@ -137,7 +138,7 @@ class _HiddenGemsHeader extends StatelessWidget {
           Positioned(
             left: 70,
             right: 20,
-            top: 138,
+            top: 126,
             child: Row(
               children: [
                 const Icon(
@@ -233,11 +234,11 @@ class _CategoryChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 66,
+      height: 58,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(24, 0, 24, 20),
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
         clipBehavior: Clip.none,
         itemCount: _chips.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
@@ -290,7 +291,7 @@ class _FeaturedSectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 14, 24, 16),
+      padding: const EdgeInsets.fromLTRB(24, 14, 24, 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -341,7 +342,7 @@ class _FeaturedStoryCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Container(
-        height: 250,
+        height: 220,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
           boxShadow: const [
@@ -440,7 +441,7 @@ class _FeaturedStoryCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.plusJakartaSans(
                       color: Colors.white,
-                      fontSize: 29,
+                      fontSize: 24,
                       height: 1.02,
                       fontWeight: FontWeight.w800,
                     ),
@@ -510,19 +511,18 @@ class _FeaturedStoryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _StoryMetric(
                         icon: Icons.star_rounded,
                         iconColor: Color(0xFFFFC247),
                         label: '4.9',
                       ),
-                      SizedBox(width: 28),
                       _StoryMetric(
                         icon: Icons.visibility_outlined,
                         iconColor: Colors.white,
                         label: '1.248 views',
                       ),
-                      SizedBox(width: 28),
                       _StoryMetric(
                         icon: Icons.chat_bubble_outline_rounded,
                         iconColor: Colors.white,
@@ -578,7 +578,7 @@ class _CommunitySectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 34, 24, 16),
+      padding: const EdgeInsets.fromLTRB(24, 30, 24, 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -589,7 +589,7 @@ class _CommunitySectionHeader extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.plusJakartaSans(
                 color: AppColors.deepForest,
-                fontSize: 21,
+                fontSize: 16.5,
                 height: 1,
                 fontWeight: FontWeight.w800,
               ),
@@ -599,7 +599,7 @@ class _CommunitySectionHeader extends StatelessWidget {
             'Urutkan:',
             style: GoogleFonts.plusJakartaSans(
               color: const Color(0xFF6B7280),
-              fontSize: 13,
+              fontSize: 11.5,
               height: 1,
               fontWeight: FontWeight.w700,
             ),
@@ -609,7 +609,7 @@ class _CommunitySectionHeader extends StatelessWidget {
             'Terbaru',
             style: GoogleFonts.plusJakartaSans(
               color: AppColors.forestGreen,
-              fontSize: 13,
+              fontSize: 11.5,
               height: 1,
               fontWeight: FontWeight.w800,
             ),
@@ -887,7 +887,7 @@ class _FloatingMapButton extends StatelessWidget {
       width: 72,
       height: 72,
       decoration: BoxDecoration(
-        color: AppColors.deepForest,
+        color: AppColors.forestGreen,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
