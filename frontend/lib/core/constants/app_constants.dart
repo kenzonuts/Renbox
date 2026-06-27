@@ -17,7 +17,7 @@ class AppConstants {
   static const String interestsKey = 'interests_setup_complete';
 
   /// Require users to log in before accessing the app.
-  static const bool requireAuth = false;
+  static const bool requireAuth = true;
 
   /// Temporary UI-only mode. Set false when backend auth is ready.
   static const bool useDummyAuth = true;
